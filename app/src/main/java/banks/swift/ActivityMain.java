@@ -1,5 +1,6 @@
 package banks.swift;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -7,10 +8,17 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.web.client.RestTemplate;
+
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ActivityMain extends ActionBarActivity {
+
+    private List<Bank> list;
+    private RecyclerView.Adapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,15 +30,18 @@ public class ActivityMain extends ActionBarActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        List<Bank> list = new ArrayList<Bank>();
-        list.add(new Bank("Banco do Brasil", "Brasil", "13456", "SP"));
-        list.add(new Bank("Banco do Brasil", "Brasil", "13456", "SP"));
-        list.add(new Bank("Banco do Brasil", "Brasil", "13456", "SP"));
-        list.add(new Bank("Banco do Brasil", "Brasil", "13456", "SP"));
-        list.add(new Bank("Banco do Brasil", "Brasil", "13456", "SP"));
+        list = new ArrayList<Bank>();
 
-        RecyclerView.Adapter adapter = new AdapterBank(list);
+        if (list.size() <= 0) {
+            list.add(new Bank("Banco do Brasil", "Brasil", new Date().toString(), "SP"));
+            list.add(new Bank("Banco do Brasil", "Brasil", new Date().toString(), "SP"));
+        }
+
+        adapter = new AdapterBank(list);
         recyclerView.setAdapter(adapter);
+
+        DownloadBank task = new DownloadBank();
+        task.execute();
     }
 
     @Override
@@ -46,6 +57,26 @@ public class ActivityMain extends ActionBarActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public class DownloadBank extends AsyncTask<Void, Void, Bank> {
+
+        @Override
+        protected Bank doInBackground(Void... params) {
+            // The connection URL
+            String url = "https://dl.dropboxusercontent.com/u/9889747/apps/swift-code/banco.json";
+
+            RestTemplate restTemplate = new RestTemplate();
+            restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+            return (Bank) restTemplate.getForObject(url, Bank.class);
+        }
+
+        @Override
+        protected void onPostExecute(Bank result) {
+            super.onPostExecute(result);
+            list.add(result);
+            adapter.notifyDataSetChanged();
+        }
     }
 
 }
