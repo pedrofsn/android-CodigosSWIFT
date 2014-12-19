@@ -1,15 +1,11 @@
 package banks.swift;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
-
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -32,16 +28,12 @@ public class ActivityMain extends ActionBarActivity {
 
         list = new ArrayList<Bank>();
 
-        if (list.size() <= 0) {
-            list.add(new Bank("Banco do Brasil", "Brasil", new Date().toString(), "SP"));
-            list.add(new Bank("Banco do Brasil", "Brasil", new Date().toString(), "SP"));
+        for (int i = 0; i <= 20; i++) {
+            list.add(new Bank("Banco do Brasil " + i, "Goiânia", new Date().toString(), "GO"));
         }
 
         adapter = new AdapterBank(list);
         recyclerView.setAdapter(adapter);
-
-        DownloadBank task = new DownloadBank();
-        task.execute();
     }
 
     @Override
@@ -57,26 +49,6 @@ public class ActivityMain extends ActionBarActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    public class DownloadBank extends AsyncTask<Void, Void, Bank> {
-
-        @Override
-        protected Bank doInBackground(Void... params) {
-            // The connection URL
-            String url = "https://dl.dropboxusercontent.com/u/9889747/apps/swift-code/banco.json";
-
-            RestTemplate restTemplate = new RestTemplate();
-            restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-            return (Bank) restTemplate.getForObject(url, Bank.class);
-        }
-
-        @Override
-        protected void onPostExecute(Bank result) {
-            super.onPostExecute(result);
-            list.add(result);
-            adapter.notifyDataSetChanged();
-        }
     }
 
 }

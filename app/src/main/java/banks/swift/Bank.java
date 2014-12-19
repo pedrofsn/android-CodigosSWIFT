@@ -4,6 +4,7 @@ package banks.swift;
  * Created by Pedro on 25/10/2014.
  */
 public class Bank {
+
     private String name;
     private String region;
     private String swift;
