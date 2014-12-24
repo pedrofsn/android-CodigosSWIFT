@@ -41,27 +41,21 @@ public class AdapterCountry extends BaseAdapter {
         ViewHolder viewHolder;
 
         if (v == null) {
-
-            // inflate the layout
             LayoutInflater inflater = LayoutInflater.from(context);
             v = inflater.inflate(R.layout.adapter_country, parent, false);
 
-            // well set up the ViewHolder
             viewHolder = new ViewHolder();
-            viewHolder.textViewCountry = (TextView) v.findViewById(R.id.textViewCountry); 
+            viewHolder.textViewCountry = (TextView) v.findViewById(R.id.textViewCountry);
 
-            // store the holder with the view.
             v.setTag(viewHolder);
 
         } else {
-            // we've just avoided calling findViewById() on resource everytime
-            // just use the viewHolder
             viewHolder = (ViewHolder) v.getTag();
         }
 
         String nomeDoPais = list.get(position);
+
         if (nomeDoPais != null) {
-            // get the TextView from the ViewHolder and then set the text (item name) and tag (item ID) values
             viewHolder.textViewCountry.setText(nomeDoPais);
             v.setTag(viewHolder);
         }
@@ -70,6 +64,6 @@ public class AdapterCountry extends BaseAdapter {
     }
 
     public static class ViewHolder {
-        public TextView textViewCountry; 
-    } 
+        public TextView textViewCountry;
+    }
 }

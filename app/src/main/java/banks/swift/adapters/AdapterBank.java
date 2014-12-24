@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import java.util.List;
@@ -43,36 +44,41 @@ public class AdapterBank extends BaseAdapter {
 
         if (v == null) {
 
-            // inflate the layout
             LayoutInflater inflater = LayoutInflater.from(context);
             v = inflater.inflate(R.layout.adapter_bank, parent, false);
 
-            // well set up the ViewHolder
             viewHolder = new ViewHolder();
             viewHolder.textViewBankName = (TextView) v.findViewById(R.id.textViewBankName);
             viewHolder.textViewBankRegion = (TextView) v.findViewById(R.id.textViewBankRegion);
             viewHolder.textViewBankSwift = (TextView) v.findViewById(R.id.textViewBankSwift);
             viewHolder.textViewBankBranch = (TextView) v.findViewById(R.id.textViewBankBranch);
+            viewHolder.rowBranch = (TableRow) v.findViewById(R.id.rowBranch);
 
-            // store the holder with the view.
             v.setTag(viewHolder);
 
         } else {
-            // we've just avoided calling findViewById() on resource everytime
-            // just use the viewHolder
             viewHolder = (ViewHolder) v.getTag();
         }
 
-        // object item based on the position
         Bank objectItem = listBanks.get(position);
 
-        // assign values if the object is not null
         if (objectItem != null) {
-            // get the TextView from the ViewHolder and then set the text (item name) and tag (item ID) values
-            viewHolder.textViewBankName.setText(listBanks.get(position).getName());
-            viewHolder.textViewBankRegion.setText(listBanks.get(position).getCity());
-            viewHolder.textViewBankSwift.setText(listBanks.get(position).getSwift());
-            viewHolder.textViewBankBranch.setText(listBanks.get(position).getBranch());
+
+            String name = listBanks.get(position).getName();
+            String city = listBanks.get(position).getCity();
+            String swift = listBanks.get(position).getSwift();
+            String branch = listBanks.get(position).getBranch();
+
+            viewHolder.textViewBankName.setText(name);
+            viewHolder.textViewBankRegion.setText(city);
+            viewHolder.textViewBankSwift.setText(swift);
+
+            if (!"".equals(branch)) {
+                viewHolder.textViewBankBranch.setText(branch);
+            } else {
+                viewHolder.rowBranch.setVisibility(View.GONE);
+            }
+
             v.setTag(viewHolder);
         }
 
@@ -84,59 +90,7 @@ public class AdapterBank extends BaseAdapter {
         public TextView textViewBankRegion;
         public TextView textViewBankSwift;
         public TextView textViewBankBranch;
+        public TableRow rowBranch;
     }
 
-    /*
-
-    private List<Bank> listBanks;
-
-    public AdapterBank(List<Bank> list) {
-        listBanks = list;
-    }
-
-    @Override
-    public AdapterBank.ViewHolder onCreateViewHolder(ViewGroup parent,
-                                                     int viewType) {
-        View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.adapter_bank, parent, false);
-
-        ViewHolder holder = new ViewHolder(v);
-        holder.textViewBankName.setTag(holder);
-        holder.textViewBankRegion.setTag(holder);
-        holder.textViewBankSwift.setTag(holder);
-        holder.textViewBankBranch.setTag(holder);
-
-        return holder;
-    }
-
-    @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.textViewBankName.setText(listBanks.get(position).getName());
-        holder.textViewBankRegion.setText(listBanks.get(position).getRegion());
-        holder.textViewBankSwift.setText(listBanks.get(position).getSwift());
-        holder.textViewBankBranch.setText(listBanks.get(position).getBranch());
-    }
-
-    @Override
-    public int getItemCount() {
-        return listBanks.size();
-    }
-
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-
-        public TextView textViewBankName;
-        public TextView textViewBankRegion;
-        public TextView textViewBankSwift;
-        public TextView textViewBankBranch;
-
-        public ViewHolder(View v) {
-            super(v);
-            textViewBankName = (TextView) v.findViewById(R.id.textViewBankName);
-            textViewBankRegion = (TextView) v.findViewById(R.id.textViewBankRegion);
-            textViewBankSwift = (TextView) v.findViewById(R.id.textViewBankSwift);
-            textViewBankBranch = (TextView) v.findViewById(R.id.textViewBankBranch);
-        }
-    }
-
-     */
 }
