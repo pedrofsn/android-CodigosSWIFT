@@ -1,9 +1,11 @@
 package banks.swift.model;
 
+import java.io.Serializable;
+
 /**
  * Created by Pedro on 25/10/2014.
  */
-public class Bank {
+public class Bank implements Serializable {
 
     private String name;
     private String city;
