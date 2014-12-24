@@ -1,4 +1,4 @@
-package banks.swift;
+package banks.swift.model;
 
 /**
  * Created by Pedro on 25/10/2014.
@@ -6,13 +6,13 @@ package banks.swift;
 public class Bank {
 
     private String name;
-    private String region;
+    private String city;
     private String swift;
     private String branch;
 
-    public Bank(String name, String region, String swift, String branch) {
+    public Bank(String name, String city, String swift, String branch) {
         this.name = name;
-        this.region = region;
+        this.city = city;
         this.swift = swift;
         this.branch = branch;
     }
@@ -25,12 +25,12 @@ public class Bank {
         this.name = name;
     }
 
-    public String getRegion() {
-        return region;
+    public String getCity() {
+        return city;
     }
 
-    public void setRegion(String region) {
-        this.region = region;
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public String getSwift() {
