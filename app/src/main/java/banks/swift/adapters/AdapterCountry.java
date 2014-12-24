@@ -13,8 +13,8 @@ import banks.swift.R;
 
 public class AdapterCountry extends BaseAdapter {
 
-    private Context context;
-    private List<String> list;
+    private final Context context;
+    private final List<String> list;
 
     public AdapterCountry(Context context, List<String> list) {
         this.context = context;

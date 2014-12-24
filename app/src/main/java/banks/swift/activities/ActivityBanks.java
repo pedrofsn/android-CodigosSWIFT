@@ -20,9 +20,6 @@ import banks.swift.model.Bank;
 
 public class ActivityBanks extends ActionBarActivity {
 
-    private List<Bank> list;
-    private AdapterBank adapter;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,16 +31,16 @@ public class ActivityBanks extends ActionBarActivity {
 
         Bank[] arrayBank = new Gson().fromJson(getStringJsonFromAssets(pais.concat(".json")), Bank[].class);
 
-        list = new ArrayList<Bank>();
+        List<Bank> list = new ArrayList<Bank>();
 
         list.addAll(Arrays.asList(arrayBank));
 
-        adapter = new AdapterBank(this, list);
+        AdapterBank adapter = new AdapterBank(this, list);
         listView.setAdapter(adapter);
 
     }
 
-    public String getStringJsonFromAssets(String arquivo) {
+    private String getStringJsonFromAssets(String arquivo) {
         try {
             InputStream is = getAssets().open(arquivo);
             int size = is.available();

@@ -44,11 +44,9 @@ public class ActivityCountries extends ActionBarActivity {
         try {
             String[] filelist = assetManager.list("");
 
-            if (filelist != null) {
-                for (String nomeDoPais : filelist) {
-                    if (nomeDoPais.endsWith(".json")) {
-                        paises.add(nomeDoPais.replace(".json", "").trim());
-                    }
+            for (String nomeDoPais : filelist) {
+                if (nomeDoPais.endsWith(".json")) {
+                    paises.add(nomeDoPais.replace(".json", "").trim());
                 }
             }
 

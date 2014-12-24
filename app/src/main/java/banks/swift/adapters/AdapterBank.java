@@ -15,8 +15,8 @@ import banks.swift.model.Bank;
 
 public class AdapterBank extends BaseAdapter {
 
-    private Context context;
-    private List<Bank> listBanks;
+    private final Context context;
+    private final List<Bank> listBanks;
 
     public AdapterBank(Context context, List<Bank> listBanks) {
         this.context = context;

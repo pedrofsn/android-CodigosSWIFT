@@ -21,31 +21,16 @@ public class Bank {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getCity() {
         return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
     }
 
     public String getSwift() {
         return swift;
     }
 
-    public void setSwift(String swift) {
-        this.swift = swift;
-    }
-
     public String getBranch() {
         return branch;
     }
 
-    public void setBranch(String branch) {
-        this.branch = branch;
-    }
 }
