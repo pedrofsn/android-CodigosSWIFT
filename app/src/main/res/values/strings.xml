@@ -4,5 +4,6 @@
     <string name="app_name">Códigos SWIFT</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="ops_ocorreu_um_erro">Ops... ocorreu um erro!</string>
 
 </resources>

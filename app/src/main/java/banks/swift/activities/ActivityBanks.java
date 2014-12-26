@@ -6,19 +6,18 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 
-import com.google.gson.Gson;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Arrays;
-
 import banks.swift.R;
 import banks.swift.adapters.AdapterBank;
+import banks.swift.asynctasks.AsyncTaskLoadBanks;
+import banks.swift.interfaces.ILoadBanks;
 import banks.swift.model.Bank;
+import de.keyboardsurfer.android.widget.crouton.Crouton;
+import de.keyboardsurfer.android.widget.crouton.Style;
 
-public class ActivityBanks extends ActionBarActivity {
+public class ActivityBanks extends ActionBarActivity implements ILoadBanks {
 
-    private String countryName;
+    private ListView listView;
+
     private Bank[] arrayBank;
 
     @Override
@@ -26,37 +25,21 @@ public class ActivityBanks extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity);
 
-        ListView listView = (ListView) findViewById(R.id.listView);
+        listView = (ListView) findViewById(R.id.listView);
 
         if (savedInstanceState != null) {
             arrayBank = (Bank[]) savedInstanceState.get("banks");
+            listView.setAdapter(new AdapterBank(this, arrayBank));
         } else {
-            countryName = getIntent().getStringExtra("country");
-            arrayBank = new Gson().fromJson(getStringJsonFromAssets(countryName.concat(".json")), Bank[].class);
+            AsyncTaskLoadBanks asyncTaskLoadBanks = new AsyncTaskLoadBanks(this);
+            asyncTaskLoadBanks.execute(getIntent().getStringExtra("country"));
         }
-
-        AdapterBank adapter = new AdapterBank(this, Arrays.asList(arrayBank));
-        listView.setAdapter(adapter);
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putSerializable("banks", arrayBank);
-    }
-
-    private String getStringJsonFromAssets(String arquivo) {
-        try {
-            InputStream is = getAssets().open(arquivo);
-            int size = is.available();
-            byte[] buffer = new byte[size];
-            is.read(buffer);
-            is.close();
-            return new String(buffer, "UTF-8");
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            return null;
-        }
     }
 
     @Override
@@ -74,4 +57,12 @@ public class ActivityBanks extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onLoadedBanks(Bank[] banks) {
+        if (banks != null) {
+            listView.setAdapter(new AdapterBank(this, banks));
+        } else {
+            Crouton.makeText(this, getString(R.string.ops_ocorreu_um_erro), Style.ALERT).show();
+        }
+    }
 }

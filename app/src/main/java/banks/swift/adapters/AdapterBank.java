@@ -8,29 +8,27 @@ import android.widget.BaseAdapter;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import java.util.List;
-
 import banks.swift.R;
 import banks.swift.model.Bank;
 
 public class AdapterBank extends BaseAdapter {
 
     private final Context context;
-    private final List<Bank> listBanks;
+    private final Bank[] arrayItem;
 
-    public AdapterBank(Context context, List<Bank> listBanks) {
+    public AdapterBank(Context context, Bank[] arrayItem) {
         this.context = context;
-        this.listBanks = listBanks;
+        this.arrayItem = arrayItem;
     }
 
     @Override
     public int getCount() {
-        return listBanks.size();
+        return arrayItem.length;
     }
 
     @Override
     public Object getItem(int position) {
-        return listBanks.get(position);
+        return arrayItem[position];
     }
 
     @Override
@@ -60,14 +58,14 @@ public class AdapterBank extends BaseAdapter {
             viewHolder = (ViewHolder) v.getTag();
         }
 
-        Bank objectItem = listBanks.get(position);
+        Bank objectItem = arrayItem[position];
 
         if (objectItem != null) {
 
-            String name = listBanks.get(position).getName();
-            String city = listBanks.get(position).getCity();
-            String swift = listBanks.get(position).getSwift();
-            String branch = listBanks.get(position).getBranch();
+            String name = arrayItem[position].getName();
+            String city = arrayItem[position].getCity();
+            String swift = arrayItem[position].getSwift();
+            String branch = arrayItem[position].getBranch();
 
             viewHolder.textViewBankName.setText(name);
             viewHolder.textViewBankRegion.setText(city);
