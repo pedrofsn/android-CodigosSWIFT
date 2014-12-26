@@ -19,9 +19,9 @@ public class AsyncTaskLoadBanks extends AsyncTask<String, Void, Bank[]> {
     private Context context;
     private ILoadBanks callback;
 
-    public AsyncTaskLoadBanks(Context context) {
+    public AsyncTaskLoadBanks(Context context, ILoadBanks callback) {
         this.context = context;
-        this.callback = (ILoadBanks) context;
+        this.callback = callback;
     }
 
     @Override
@@ -33,7 +33,6 @@ public class AsyncTaskLoadBanks extends AsyncTask<String, Void, Bank[]> {
     protected void onPostExecute(Bank[] banks) {
         super.onPostExecute(banks);
         callback.onLoadedBanks(banks);
-        //Crouton.makeText(this, context.getString(R.string.ops_ocorreu_um_erro), Style.ALERT).show();
     }
 
     private String getStringJsonFromAssets(String arquivo) {
