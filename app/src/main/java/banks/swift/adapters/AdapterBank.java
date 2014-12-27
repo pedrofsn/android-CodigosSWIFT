@@ -4,36 +4,16 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.TableRow;
 import android.widget.TextView;
 
 import banks.swift.R;
 import banks.swift.model.Bank;
 
-public class AdapterBank extends BaseAdapter {
-
-    private final Context context;
-    private final Object[] arrayItem;
+public class AdapterBank extends AdapterGeneric {
 
     public AdapterBank(Context context, Object[] arrayItem) {
-        this.context = context;
-        this.arrayItem = arrayItem;
-    }
-
-    @Override
-    public int getCount() {
-        return arrayItem.length;
-    }
-
-    @Override
-    public Object getItem(int position) {
-        return arrayItem[position];
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return position;
+        super(context, arrayItem);
     }
 
     @Override

@@ -9,29 +9,10 @@ import android.widget.TextView;
 
 import banks.swift.R;
 
-public class AdapterCountry extends BaseAdapter {
-
-    private final Context context;
-    private final Object[] arrayItem;
+public class AdapterCountry extends AdapterGeneric {
 
     public AdapterCountry(Context context, Object[] arrayItem) {
-        this.context = context;
-        this.arrayItem = arrayItem;
-    }
-
-    @Override
-    public int getCount() {
-        return arrayItem.length;
-    }
-
-    @Override
-    public Object getItem(int position) {
-        return arrayItem[position];
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return position;
+        super(context, arrayItem);
     }
 
     @Override
