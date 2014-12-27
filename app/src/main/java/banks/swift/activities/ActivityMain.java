@@ -1,8 +1,12 @@
 package banks.swift.activities;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -13,7 +17,7 @@ import banks.swift.fragment.FragmentCountries;
 /**
  * Created by pedro.sousa on 26/12/2014.
  */
-public class ActivityMain extends ActionBarActivity {
+public class ActivityMain extends ActionBarActivity implements SearchView.OnQueryTextListener{
 
     private String country;
     private boolean controlHomeButton = false;
@@ -31,28 +35,6 @@ public class ActivityMain extends ActionBarActivity {
             controlHomeButton = savedInstanceState.getBoolean("controlHomeButton");
             showHomeButton(controlHomeButton);
         }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        switch (id) {
-            case R.id.action_settings:
-
-                break;
-
-            case android.R.id.home:
-                changeFragment(null);
-                break;
-
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -100,4 +82,16 @@ public class ActivityMain extends ActionBarActivity {
         }
         super.onBackPressed();
     }
+
+    @Override
+    public boolean onQueryTextSubmit(String s) {
+
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String s) {
+        return false;
+    }
+
 }
