@@ -14,11 +14,11 @@ import banks.swift.model.Bank;
 public class AdapterBank extends BaseAdapter {
 
     private final Context context;
-    private final Bank[] arrayItem;
+    private final Object[] arrayItem;
 
     public AdapterBank(Context context, Object[] arrayItem) {
         this.context = context;
-        this.arrayItem = (Bank[]) arrayItem;
+        this.arrayItem = arrayItem;
     }
 
     @Override
@@ -58,14 +58,14 @@ public class AdapterBank extends BaseAdapter {
             viewHolder = (ViewHolder) v.getTag();
         }
 
-        Bank objectItem = arrayItem[position];
+        Bank objectItem = (Bank) arrayItem[position];
 
         if (objectItem != null) {
 
-            String name = arrayItem[position].getName();
-            String city = arrayItem[position].getCity();
-            String swift = arrayItem[position].getSwift();
-            String branch = arrayItem[position].getBranch();
+            String name = objectItem.getName();
+            String city = objectItem.getCity();
+            String swift = objectItem.getSwift();
+            String branch = objectItem.getBranch();
 
             viewHolder.textViewBankName.setText(name);
             viewHolder.textViewBankRegion.setText(city);

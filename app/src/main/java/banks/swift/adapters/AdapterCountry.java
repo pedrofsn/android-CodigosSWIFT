@@ -12,21 +12,21 @@ import banks.swift.R;
 public class AdapterCountry extends BaseAdapter {
 
     private final Context context;
-    private final String[] list;
+    private final Object[] arrayItem;
 
-    public AdapterCountry(Context context, Object[] list) {
+    public AdapterCountry(Context context, Object[] arrayItem) {
         this.context = context;
-        this.list = (String[]) list;
+        this.arrayItem = arrayItem;
     }
 
     @Override
     public int getCount() {
-        return list.length;
+        return arrayItem.length;
     }
 
     @Override
     public Object getItem(int position) {
-        return list[position];
+        return arrayItem[position];
     }
 
     @Override
@@ -51,10 +51,10 @@ public class AdapterCountry extends BaseAdapter {
             viewHolder = (ViewHolder) v.getTag();
         }
 
-        String nomeDoPais = list[position];
+        String countryName = (String) arrayItem[position];
 
-        if (nomeDoPais != null) {
-            viewHolder.textViewCountry.setText(nomeDoPais);
+        if (countryName != null) {
+            viewHolder.textViewCountry.setText(countryName);
             v.setTag(viewHolder);
         }
 
