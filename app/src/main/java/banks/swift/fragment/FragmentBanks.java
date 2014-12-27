@@ -40,7 +40,7 @@ public class FragmentBanks extends Fragment implements ILoadBanks {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.activity, container, false);
+        return inflater.inflate(R.layout.fragment, container, false);
     }
 
     @Override

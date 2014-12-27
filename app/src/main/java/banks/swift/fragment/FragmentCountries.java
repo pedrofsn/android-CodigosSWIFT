@@ -32,7 +32,7 @@ public class FragmentCountries extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.activity, container, false);
+        return inflater.inflate(R.layout.fragment, container, false);
     }
 
     @Override
@@ -44,13 +44,12 @@ public class FragmentCountries extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-
         listView.setAdapter(new AdapterCountry(getActivity(), countries));
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ((ActivityMain) getActivity()).altetarFragment(((String) listView.getAdapter().getItem(position)));
+                ((ActivityMain) getActivity()).changeFragment(((String) listView.getAdapter().getItem(position)));
             }
         });
     }
