@@ -12,9 +12,8 @@ import android.widget.ProgressBar;
 import banks.swift.R;
 import banks.swift.activities.ActivityMain;
 import banks.swift.adapters.AdapterCountry;
-import banks.swift.asynctasks.AsyncTaskLoadCountries;
+import banks.swift.asynctasks.AsyncTaskLoad;
 import banks.swift.asynctasks.AsyncTaskSearch;
-import banks.swift.interfaces.Loadable;
 import banks.swift.interfaces.Searchable;
 import de.keyboardsurfer.android.widget.crouton.Crouton;
 import de.keyboardsurfer.android.widget.crouton.Style;
@@ -22,7 +21,7 @@ import de.keyboardsurfer.android.widget.crouton.Style;
 /**
  * Created by pedro.sousa on 26/12/2014.
  */
-public class FragmentCountries extends Fragment implements AdapterView.OnItemClickListener, Searchable, Loadable {
+public class FragmentCountries extends Fragment implements AdapterView.OnItemClickListener, Searchable {
 
     private ListView listView;
     private ProgressBar progressBar;
@@ -37,7 +36,7 @@ public class FragmentCountries extends Fragment implements AdapterView.OnItemCli
             arrayCountries = (String[]) savedInstanceState.get("arrayCountries");
             adapter = new AdapterCountry(getActivity(), arrayCountries);
         } else {
-            AsyncTaskLoadCountries asyncTask = new AsyncTaskLoadCountries(getActivity(), this);
+            AsyncTaskLoad asyncTask = new AsyncTaskLoad(getActivity(), this);
             asyncTask.execute();
         }
     }
@@ -64,17 +63,6 @@ public class FragmentCountries extends Fragment implements AdapterView.OnItemCli
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putStringArray("arrayCountries", arrayCountries);
-    }
-
-    @Override
-    public void onLoaded(Object result) {
-        if (result != null) {
-            this.arrayCountries = (String[]) result;
-            adapter = new AdapterCountry(getActivity(), (String[]) result);
-            updateListView(adapter);
-        } else {
-            Crouton.makeText(getActivity(), getString(R.string.ops_ocorreu_um_erro), Style.ALERT).show();
-        }
     }
 
     @Override
@@ -106,11 +94,18 @@ public class FragmentCountries extends Fragment implements AdapterView.OnItemCli
 
     @Override
     public void restartSearch() {
-        updateListView(adapter);
+        updateListView(new AdapterCountry(getActivity(), arrayCountries));
     }
 
     @Override
-    public void showSearchResults(Object[] array) {
-        updateListView(new AdapterCountry(getActivity(), (String[]) array));
+    public void showSearchResults(Object[] result) {
+        if (result != null && result.length >= 1) {
+            if (arrayCountries == null) {
+                arrayCountries = (String[]) result;
+            }
+            updateListView(new AdapterCountry(getActivity(), (String[]) result));
+        } else {
+            Crouton.makeText(getActivity(), getString(R.string.sem_resultados), Style.ALERT).show();
+        }
     }
 }

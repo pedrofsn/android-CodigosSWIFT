@@ -20,9 +20,9 @@ import banks.swift.fragment.FragmentCountries;
  */
 public class ActivityMain extends ActionBarActivity implements SearchView.OnQueryTextListener {
 
-    private String country;
     public boolean isFragmentBanksVisible = false;
     public MenuItem searchItem;
+    private String country;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

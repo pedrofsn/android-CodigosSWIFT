@@ -11,9 +11,8 @@ import android.widget.ProgressBar;
 import banks.swift.R;
 import banks.swift.activities.ActivityMain;
 import banks.swift.adapters.AdapterBank;
-import banks.swift.asynctasks.AsyncTaskLoadBanks;
+import banks.swift.asynctasks.AsyncTaskLoad;
 import banks.swift.asynctasks.AsyncTaskSearch;
-import banks.swift.interfaces.Loadable;
 import banks.swift.interfaces.Searchable;
 import banks.swift.model.Bank;
 import de.keyboardsurfer.android.widget.crouton.Crouton;
@@ -22,7 +21,7 @@ import de.keyboardsurfer.android.widget.crouton.Style;
 /**
  * Created by pedro.sousa on 26/12/2014.
  */
-public class FragmentBanks extends Fragment implements Searchable, Loadable {
+public class FragmentBanks extends Fragment implements Searchable {
 
     private ListView listView;
     private ProgressBar progressBar;
@@ -37,7 +36,7 @@ public class FragmentBanks extends Fragment implements Searchable, Loadable {
             arrayBanks = (Bank[]) savedInstanceState.get("banks");
             adapter = new AdapterBank(getActivity(), arrayBanks);
         } else {
-            AsyncTaskLoadBanks asyncTask = new AsyncTaskLoadBanks(getActivity(), this);
+            AsyncTaskLoad asyncTask = new AsyncTaskLoad(getActivity(), this);
             asyncTask.execute(((ActivityMain) getActivity()).getCountry());
         }
     }
@@ -61,20 +60,15 @@ public class FragmentBanks extends Fragment implements Searchable, Loadable {
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putSerializable("banks", arrayBanks);
+    public void onLoading() {
+        listView.setVisibility(View.GONE);
+        progressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
-    public void onLoaded(Object reult) {
-        if (reult != null) {
-            this.arrayBanks = (Bank[]) reult;
-            adapter = new AdapterBank(getActivity(), (Bank[]) reult);
-            updateListView(adapter);
-        } else {
-            Crouton.makeText(getActivity(), getString(R.string.ops_ocorreu_um_erro), Style.ALERT).show();
-        }
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable("banks", arrayBanks);
     }
 
     private void updateListView(AdapterBank adapter) {
@@ -92,17 +86,18 @@ public class FragmentBanks extends Fragment implements Searchable, Loadable {
 
     @Override
     public void restartSearch() {
-        updateListView(adapter);
+        updateListView(new AdapterBank(getActivity(), arrayBanks));
     }
 
     @Override
-    public void showSearchResults(Object[] array) {
-        updateListView(new AdapterBank(getActivity(), (Bank[]) array));
-    }
-
-    @Override
-    public void onLoading() {
-        listView.setVisibility(View.GONE);
-        progressBar.setVisibility(View.VISIBLE);
+    public void showSearchResults(Object[] result) {
+        if (result != null && result.length >= 1) {
+            if (arrayBanks == null) {
+                arrayBanks = (Bank[]) result;
+            }
+            updateListView(new AdapterBank(getActivity(), (Bank[]) result));
+        } else {
+            Crouton.makeText(getActivity(), getString(R.string.sem_resultados), Style.ALERT).show();
+        }
     }
 }

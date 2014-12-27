@@ -4,54 +4,41 @@ import android.content.Context;
 import android.content.res.AssetManager;
 import android.os.AsyncTask;
 
+import com.google.gson.Gson;
+
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 
-import banks.swift.interfaces.Loadable;
+import banks.swift.interfaces.Searchable;
+import banks.swift.model.Bank;
 
 /**
  * Created by pedro.sousa on 24/12/2014.
  */
-public class AsyncTaskLoad<T> extends AsyncTask<String, Void, T> {
+public class AsyncTaskLoad extends AsyncTask<String, Void, Object[]> {
 
     private Context context;
-    private Loadable callback;
-    private Type inferedClass;
+    private Searchable callback;
 
-    public AsyncTaskLoad(Context context, Loadable callback) {
+    public AsyncTaskLoad(Context context, Searchable callback) {
         this.context = context;
         this.callback = callback;
-        //this.inferedClass = Class<T>;
     }
 
-    public Type getGenericClass() {
-        if (inferedClass == null) {
-            Type mySuperclass = getClass().getGenericSuperclass();
-            Type tType = ((ParameterizedType) mySuperclass).getActualTypeArguments()[0];
-            return tType;
+    @Override
+    protected Object[] doInBackground(String... params) {
+        if (params != null && params.length >= 1 && params[0] != null) {
+            return new Gson().fromJson(getStringJsonFromAssets(params[0].concat(".json")), Bank[].class);
+        } else {
+            return lerArquivos();
         }
-
-        return null;
     }
 
     @Override
-    protected T doInBackground(String... params) {
-   /*     if (<T >extends ArrayList<String>){
-            return (T) lerArquivos();
-            else
-            return (T) new Gson().fromJson(getStringJsonFromAssets(params[0].concat(".json")), Bank[].class);
-
-        }*/
-        return null;
-    }
-
-    @Override
-    protected void onPostExecute(T result) {
+    protected void onPostExecute(Object[] result) {
         super.onPostExecute(result);
-        callback.onLoaded(result);
+        callback.showSearchResults(result);
     }
 
     private String getStringJsonFromAssets(String arquivo) {
@@ -68,7 +55,7 @@ public class AsyncTaskLoad<T> extends AsyncTask<String, Void, T> {
         }
     }
 
-    private ArrayList<String> lerArquivos() {
+    private String[] lerArquivos() {
         ArrayList<String> paises = new ArrayList<String>();
         AssetManager assetManager = context.getAssets();
         try {
@@ -84,6 +71,6 @@ public class AsyncTaskLoad<T> extends AsyncTask<String, Void, T> {
             e.printStackTrace();
         }
 
-        return paises;
+        return paises.toArray(new String[paises.size()]);
     }
 }
