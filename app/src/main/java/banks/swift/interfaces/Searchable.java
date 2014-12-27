@@ -9,4 +9,6 @@ public interface Searchable {
 
     public void restartSearch();
 
+    public void showSearchResults(Object[] array);
+
 }

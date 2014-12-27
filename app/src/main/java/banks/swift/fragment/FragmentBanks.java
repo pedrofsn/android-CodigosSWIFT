@@ -7,11 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import banks.swift.ActivitySearchable;
 import banks.swift.R;
 import banks.swift.activities.ActivityMain;
 import banks.swift.adapters.AdapterBank;
 import banks.swift.asynctasks.AsyncTaskLoadBanks;
+import banks.swift.asynctasks.AsyncTaskSearch;
 import banks.swift.interfaces.Loadable;
 import banks.swift.interfaces.Searchable;
 import banks.swift.model.Bank;
@@ -82,11 +82,16 @@ public class FragmentBanks extends Fragment implements Searchable, Loadable {
 
     @Override
     public void search(String query) {
-        updateListView(new AdapterBank(getActivity(), (Bank[]) ((ActivitySearchable) getActivity()).search(arrayBanks, query)));
+        new AsyncTaskSearch(this, arrayBanks, query).execute();
     }
 
     @Override
     public void restartSearch() {
         updateListView(adapter);
+    }
+
+    @Override
+    public void showSearchResults(Object[] array) {
+        updateListView(new AdapterBank(getActivity(), (Bank[]) array));
     }
 }

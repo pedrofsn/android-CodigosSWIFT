@@ -8,11 +8,11 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import banks.swift.ActivitySearchable;
 import banks.swift.R;
 import banks.swift.activities.ActivityMain;
 import banks.swift.adapters.AdapterCountry;
 import banks.swift.asynctasks.AsyncTaskLoadCountries;
+import banks.swift.asynctasks.AsyncTaskSearch;
 import banks.swift.interfaces.Loadable;
 import banks.swift.interfaces.Searchable;
 import de.keyboardsurfer.android.widget.crouton.Crouton;
@@ -88,11 +88,16 @@ public class FragmentCountries extends Fragment implements AdapterView.OnItemCli
 
     @Override
     public void search(String query) {
-        updateListView(new AdapterCountry(getActivity(), (String[]) ((ActivitySearchable) getActivity()).search(arrayCountries, query)));
+        new AsyncTaskSearch(this, arrayCountries, query).execute();
     }
 
     @Override
     public void restartSearch() {
         updateListView(adapter);
+    }
+
+    @Override
+    public void showSearchResults(Object[] array) {
+        updateListView(new AdapterCountry(getActivity(), (String[]) array));
     }
 }
