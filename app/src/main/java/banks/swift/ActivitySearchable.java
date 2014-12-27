@@ -8,11 +8,19 @@ import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.ArrayList;
+
+import banks.swift.fragment.FragmentBanks;
+import banks.swift.fragment.FragmentCountries;
+import banks.swift.model.Bank;
+
 /**
  * Created by pedrofsn on 27/12/2014.
  */
 public abstract class ActivitySearchable extends ActionBarActivity implements SearchView.OnQueryTextListener {
 
+    public FragmentCountries fragmentCountries;
+    public FragmentBanks fragmentBanks;
     public boolean isFragmentBanksVisible = false;
 
     @Override
@@ -20,11 +28,29 @@ public abstract class ActivitySearchable extends ActionBarActivity implements Se
         getMenuInflater().inflate(R.menu.activity_main, menu);
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         MenuItem searchItem = menu.findItem(R.id.action_search);
-        SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         searchView.setOnQueryTextListener(this);
+/*
+        searchItem.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
+            @Override
+            public boolean onMenuItemActionExpand(MenuItem menuItem) {
+                return false;
+            }
+
+            @Override
+            public boolean onMenuItemActionCollapse(MenuItem menuItem) {
+                searchView.setQuery("", false);
+                restartSearch();
+                return false;
+            }
+        });
+*/
+
         return true;
     }
+
+    public abstract void restartSearch();
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -46,10 +72,12 @@ public abstract class ActivitySearchable extends ActionBarActivity implements Se
 
     @Override
     public boolean onQueryTextSubmit(String s) {
-        if (isFragmentBanksVisible) {
-
-        } else {
-
+        if (s != null && !s.isEmpty()) {
+            if (isFragmentBanksVisible) {
+                fragmentBanks.search(s);
+            } else {
+                fragmentCountries.search(s);
+            }
         }
         return false;
     }
@@ -59,23 +87,29 @@ public abstract class ActivitySearchable extends ActionBarActivity implements Se
         return false;
     }
 
-    private int buscaBinaria(int[] tabela, int valor) {
+    public Object search(Object[] array, String query) {
 
-        boolean achou = false;
-        int alto = tabela.length - 1;
-        int baixo = 0;
-        int meio = alto / 2;
+        if (array instanceof String[]) {
+            ArrayList<String> result = new ArrayList<String>();
 
-        while (!achou && alto >= baixo) {
-            if (valor == tabela[meio]) {
-                achou = true;
-            } else if (valor < tabela[meio]) {
-                alto = meio - 1;
-            } else {
-                baixo = meio + 1;
+            for (String pais : (String[]) array) {
+                if (pais.toLowerCase().contains(query.toLowerCase())) {
+                    result.add(pais);
+                }
             }
-            meio = (alto + baixo) / 2;
+
+            return result.toArray(new String[result.size()]);
+
+        } else {
+            ArrayList<Bank> result = new ArrayList<Bank>();
+
+            for (Bank pais : (Bank[]) array) {
+                if (pais.getName().toLowerCase().contains(query.toLowerCase())) {
+                    result.add(pais);
+                }
+            }
+
+            return result.toArray(new Bank[result.size()]);
         }
-        return ((achou) ? meio : -1);
     }
 }

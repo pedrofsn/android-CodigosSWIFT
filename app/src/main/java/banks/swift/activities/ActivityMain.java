@@ -21,8 +21,10 @@ public class ActivityMain extends ActivitySearchable {
         setContentView(R.layout.activity_main);
 
         if (savedInstanceState == null) {
+            fragmentCountries = new FragmentCountries();
+
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, new FragmentCountries())
+                    .add(R.id.container, fragmentCountries)
                     .commit();
         } else {
             isFragmentBanksVisible = savedInstanceState.getBoolean("isFragmentBanksVisible");
@@ -37,11 +39,20 @@ public class ActivityMain extends ActivitySearchable {
     }
 
     @Override
+    public void restartSearch() {
+        if (isFragmentBanksVisible) {
+            fragmentBanks.restartSearch();
+        } else {
+            fragmentCountries.restartSearch();
+        }
+    }
+
+    @Override
     public void changeFragment(String country) {
         this.country = country;
 
         if (country != null) {
-            FragmentBanks fragmentBanks = new FragmentBanks();
+            fragmentBanks = new FragmentBanks();
 
             String backStateName = fragmentBanks.getClass().getName();
 
@@ -70,7 +81,7 @@ public class ActivityMain extends ActivitySearchable {
 
     @Override
     public void onBackPressed() {
-        if(isFragmentBanksVisible) {
+        if (isFragmentBanksVisible) {
             isFragmentBanksVisible = false;
             showHomeButton(isFragmentBanksVisible);
         }

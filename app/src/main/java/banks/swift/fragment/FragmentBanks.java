@@ -7,11 +7,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import banks.swift.ActivitySearchable;
 import banks.swift.R;
 import banks.swift.activities.ActivityMain;
 import banks.swift.adapters.AdapterBank;
 import banks.swift.asynctasks.AsyncTaskLoadBanks;
 import banks.swift.interfaces.Loadable;
+import banks.swift.interfaces.Searchable;
 import banks.swift.model.Bank;
 import de.keyboardsurfer.android.widget.crouton.Crouton;
 import de.keyboardsurfer.android.widget.crouton.Style;
@@ -19,19 +21,19 @@ import de.keyboardsurfer.android.widget.crouton.Style;
 /**
  * Created by pedro.sousa on 26/12/2014.
  */
-public class FragmentBanks extends Fragment implements Loadable {
+public class FragmentBanks extends Fragment implements Searchable, Loadable {
 
     private ListView listView;
 
-    private Bank[] banks;
+    private Bank[] arrayBanks;
     private AdapterBank adapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (savedInstanceState != null) {
-            banks = (Bank[]) savedInstanceState.get("banks");
-            adapter = new AdapterBank(getActivity(), banks);
+            arrayBanks = (Bank[]) savedInstanceState.get("banks");
+            adapter = new AdapterBank(getActivity(), arrayBanks);
         } else {
             AsyncTaskLoadBanks asyncTask = new AsyncTaskLoadBanks(getActivity(), this);
             asyncTask.execute(((ActivityMain) getActivity()).getCountry());
@@ -60,16 +62,30 @@ public class FragmentBanks extends Fragment implements Loadable {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putSerializable("banks", banks);
+        outState.putSerializable("banks", arrayBanks);
     }
 
     @Override
     public void onLoaded(Object reult) {
         if (reult != null) {
-            this.banks = (Bank[]) reult;
+            this.arrayBanks = (Bank[]) reult;
             listView.setAdapter(new AdapterBank(getActivity(), (Bank[]) reult));
         } else {
             Crouton.makeText(getActivity(), getString(R.string.ops_ocorreu_um_erro), Style.ALERT).show();
         }
+    }
+
+    private void updateListView(AdapterBank adapter) {
+        listView.setAdapter(adapter);
+    }
+
+    @Override
+    public void search(String query) {
+        updateListView(new AdapterBank(getActivity(), (Bank[]) ((ActivitySearchable) getActivity()).search(arrayBanks, query)));
+    }
+
+    @Override
+    public void restartSearch() {
+        updateListView(adapter);
     }
 }

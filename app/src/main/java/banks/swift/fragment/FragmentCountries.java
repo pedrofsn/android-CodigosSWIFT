@@ -8,32 +8,32 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import java.util.ArrayList;
-
+import banks.swift.ActivitySearchable;
 import banks.swift.R;
 import banks.swift.activities.ActivityMain;
 import banks.swift.adapters.AdapterCountry;
 import banks.swift.asynctasks.AsyncTaskLoadCountries;
 import banks.swift.interfaces.Loadable;
+import banks.swift.interfaces.Searchable;
 import de.keyboardsurfer.android.widget.crouton.Crouton;
 import de.keyboardsurfer.android.widget.crouton.Style;
 
 /**
  * Created by pedro.sousa on 26/12/2014.
  */
-public class FragmentCountries extends Fragment implements AdapterView.OnItemClickListener, Loadable {
+public class FragmentCountries extends Fragment implements AdapterView.OnItemClickListener, Searchable, Loadable {
 
     private ListView listView;
 
-    private String[] countries;
+    private String[] arrayCountries;
     private AdapterCountry adapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (savedInstanceState != null) {
-            countries = (String[]) savedInstanceState.get("countries");
-            adapter = new AdapterCountry(getActivity(), countries);
+            arrayCountries = (String[]) savedInstanceState.get("arrayCountries");
+            adapter = new AdapterCountry(getActivity(), arrayCountries);
         } else {
             AsyncTaskLoadCountries asyncTask = new AsyncTaskLoadCountries(getActivity(), this);
             asyncTask.execute();
@@ -55,23 +55,22 @@ public class FragmentCountries extends Fragment implements AdapterView.OnItemCli
     public void onStart() {
         super.onStart();
         if (adapter != null) {
-            listView.setAdapter(adapter);
-            listView.setOnItemClickListener(this);
+            updateListView(adapter);
         }
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putStringArray("countries", countries);
+        outState.putStringArray("arrayCountries", arrayCountries);
     }
 
     @Override
     public void onLoaded(Object result) {
         if (result != null) {
-            this.countries = (String[]) result;
-            listView.setAdapter(new AdapterCountry(getActivity(), (String[]) result));
-            listView.setOnItemClickListener(this);
+            this.arrayCountries = (String[]) result;
+            adapter = new AdapterCountry(getActivity(), (String[]) result);
+            updateListView(adapter);
         } else {
             Crouton.makeText(getActivity(), getString(R.string.ops_ocorreu_um_erro), Style.ALERT).show();
         }
@@ -80,5 +79,20 @@ public class FragmentCountries extends Fragment implements AdapterView.OnItemCli
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         ((ActivityMain) getActivity()).changeFragment(((String) listView.getAdapter().getItem(position)));
+    }
+
+    private void updateListView(AdapterCountry adapter) {
+        listView.setAdapter(adapter);
+        listView.setOnItemClickListener(this);
+    }
+
+    @Override
+    public void search(String query) {
+        updateListView(new AdapterCountry(getActivity(), (String[]) ((ActivitySearchable) getActivity()).search(arrayCountries, query)));
+    }
+
+    @Override
+    public void restartSearch() {
+        updateListView(adapter);
     }
 }
