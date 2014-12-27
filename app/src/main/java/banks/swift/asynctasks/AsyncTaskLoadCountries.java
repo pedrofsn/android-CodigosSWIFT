@@ -24,6 +24,7 @@ public class AsyncTaskLoadCountries extends AsyncTask<String, Void, String[]> {
 
     @Override
     protected String[] doInBackground(String... params) {
+        callback.onLoading();
         return lerArquivos();
     }
 

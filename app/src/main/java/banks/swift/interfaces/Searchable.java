@@ -5,6 +5,8 @@ package banks.swift.interfaces;
  */
 public interface Searchable {
 
+    public void onLoading();
+
     public void search(String query);
 
     public void restartSearch();

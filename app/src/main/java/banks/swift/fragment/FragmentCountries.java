@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
 import banks.swift.R;
 import banks.swift.activities.ActivityMain;
@@ -24,6 +25,7 @@ import de.keyboardsurfer.android.widget.crouton.Style;
 public class FragmentCountries extends Fragment implements AdapterView.OnItemClickListener, Searchable, Loadable {
 
     private ListView listView;
+    private ProgressBar progressBar;
 
     private String[] arrayCountries;
     private AdapterCountry adapter;
@@ -49,6 +51,7 @@ public class FragmentCountries extends Fragment implements AdapterView.OnItemCli
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         listView = (ListView) view.findViewById(R.id.listView);
+        progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
     }
 
     @Override
@@ -75,12 +78,22 @@ public class FragmentCountries extends Fragment implements AdapterView.OnItemCli
     }
 
     @Override
+    public void onLoading() {
+        if (listView != null && progressBar != null) {
+            listView.setVisibility(View.GONE);
+            progressBar.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         ((ActivityMain) getActivity()).changeFragment(((String) listView.getAdapter().getItem(position)));
     }
 
     private void updateListView(AdapterCountry adapter) {
         if (adapter != null) {
+            listView.setVisibility(View.VISIBLE);
+            progressBar.setVisibility(View.GONE);
             listView.setAdapter(adapter);
             listView.setOnItemClickListener(this);
         }

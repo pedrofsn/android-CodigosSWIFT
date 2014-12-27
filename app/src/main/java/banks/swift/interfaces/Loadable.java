@@ -7,4 +7,5 @@ public interface Loadable {
 
     public void onLoaded(Object result);
 
+    public void onLoading();
 }

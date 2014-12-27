@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
 import banks.swift.R;
 import banks.swift.activities.ActivityMain;
@@ -24,6 +25,7 @@ import de.keyboardsurfer.android.widget.crouton.Style;
 public class FragmentBanks extends Fragment implements Searchable, Loadable {
 
     private ListView listView;
+    private ProgressBar progressBar;
 
     private Bank[] arrayBanks;
     private AdapterBank adapter;
@@ -49,6 +51,7 @@ public class FragmentBanks extends Fragment implements Searchable, Loadable {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         listView = (ListView) view.findViewById(R.id.listView);
+        progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
     }
 
     @Override
@@ -76,6 +79,8 @@ public class FragmentBanks extends Fragment implements Searchable, Loadable {
 
     private void updateListView(AdapterBank adapter) {
         if (adapter != null) {
+            listView.setVisibility(View.VISIBLE);
+            progressBar.setVisibility(View.GONE);
             listView.setAdapter(adapter);
         }
     }
@@ -93,5 +98,11 @@ public class FragmentBanks extends Fragment implements Searchable, Loadable {
     @Override
     public void showSearchResults(Object[] array) {
         updateListView(new AdapterBank(getActivity(), (Bank[]) array));
+    }
+
+    @Override
+    public void onLoading() {
+        listView.setVisibility(View.GONE);
+        progressBar.setVisibility(View.VISIBLE);
     }
 }
