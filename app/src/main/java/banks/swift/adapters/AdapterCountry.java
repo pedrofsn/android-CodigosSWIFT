@@ -14,9 +14,9 @@ public class AdapterCountry extends BaseAdapter {
     private final Context context;
     private final String[] list;
 
-    public AdapterCountry(Context context, String[] list) {
+    public AdapterCountry(Context context, Object[] list) {
         this.context = context;
-        this.list = list;
+        this.list = (String[]) list;
     }
 
     @Override

@@ -14,7 +14,6 @@ import banks.swift.adapters.AdapterBank;
 import banks.swift.asynctasks.AsyncTaskLoad;
 import banks.swift.asynctasks.AsyncTaskSearch;
 import banks.swift.interfaces.Searchable;
-import banks.swift.model.Bank;
 import de.keyboardsurfer.android.widget.crouton.Crouton;
 import de.keyboardsurfer.android.widget.crouton.Style;
 
@@ -26,15 +25,15 @@ public class FragmentBanks extends Fragment implements Searchable {
     private ListView listView;
     private ProgressBar progressBar;
 
-    private Bank[] arrayBanks;
+    private Object[] mArray;
     private AdapterBank adapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (savedInstanceState != null) {
-            arrayBanks = (Bank[]) savedInstanceState.get("banks");
-            adapter = new AdapterBank(getActivity(), arrayBanks);
+            mArray = (Object[]) savedInstanceState.get("mArray");
+            adapter = new AdapterBank(getActivity(), mArray);
         } else {
             AsyncTaskLoad asyncTask = new AsyncTaskLoad(getActivity(), this);
             asyncTask.execute(((ActivityMain) getActivity()).getCountry());
@@ -68,7 +67,7 @@ public class FragmentBanks extends Fragment implements Searchable {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putSerializable("banks", arrayBanks);
+        outState.putSerializable("mArray", mArray);
     }
 
     private void updateListView(AdapterBank adapter) {
@@ -81,21 +80,21 @@ public class FragmentBanks extends Fragment implements Searchable {
 
     @Override
     public void search(String query) {
-        new AsyncTaskSearch(this, arrayBanks, query).execute();
+        new AsyncTaskSearch(this, mArray, query).execute();
     }
 
     @Override
     public void restartSearch() {
-        updateListView(new AdapterBank(getActivity(), arrayBanks));
+        updateListView(new AdapterBank(getActivity(), mArray));
     }
 
     @Override
     public void showSearchResults(Object[] result) {
         if (result != null && result.length >= 1) {
-            if (arrayBanks == null) {
-                arrayBanks = (Bank[]) result;
+            if (mArray == null) {
+                mArray = (Object[]) result;
             }
-            updateListView(new AdapterBank(getActivity(), (Bank[]) result));
+            updateListView(new AdapterBank(getActivity(), (Object[]) result));
         } else {
             Crouton.makeText(getActivity(), getString(R.string.sem_resultados), Style.ALERT).show();
         }

@@ -16,9 +16,9 @@ public class AdapterBank extends BaseAdapter {
     private final Context context;
     private final Bank[] arrayItem;
 
-    public AdapterBank(Context context, Bank[] arrayItem) {
+    public AdapterBank(Context context, Object[] arrayItem) {
         this.context = context;
-        this.arrayItem = arrayItem;
+        this.arrayItem = (Bank[]) arrayItem;
     }
 
     @Override

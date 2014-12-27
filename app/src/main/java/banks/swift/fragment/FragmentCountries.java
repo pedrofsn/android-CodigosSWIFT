@@ -26,15 +26,15 @@ public class FragmentCountries extends Fragment implements AdapterView.OnItemCli
     private ListView listView;
     private ProgressBar progressBar;
 
-    private String[] arrayCountries;
+    private Object[] mArray;
     private AdapterCountry adapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (savedInstanceState != null) {
-            arrayCountries = (String[]) savedInstanceState.get("arrayCountries");
-            adapter = new AdapterCountry(getActivity(), arrayCountries);
+            mArray = (Object[]) savedInstanceState.get("mArray");
+            adapter = new AdapterCountry(getActivity(), mArray);
         } else {
             AsyncTaskLoad asyncTask = new AsyncTaskLoad(getActivity(), this);
             asyncTask.execute();
@@ -62,7 +62,7 @@ public class FragmentCountries extends Fragment implements AdapterView.OnItemCli
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putStringArray("arrayCountries", arrayCountries);
+        outState.putStringArray("mArray", (String[]) mArray);
     }
 
     @Override
@@ -89,21 +89,21 @@ public class FragmentCountries extends Fragment implements AdapterView.OnItemCli
 
     @Override
     public void search(String query) {
-        new AsyncTaskSearch(this, arrayCountries, query).execute();
+        new AsyncTaskSearch(this, mArray, query).execute();
     }
 
     @Override
     public void restartSearch() {
-        updateListView(new AdapterCountry(getActivity(), arrayCountries));
+        updateListView(new AdapterCountry(getActivity(), mArray));
     }
 
     @Override
     public void showSearchResults(Object[] result) {
         if (result != null && result.length >= 1) {
-            if (arrayCountries == null) {
-                arrayCountries = (String[]) result;
+            if (mArray == null) {
+                mArray = (Object[]) result;
             }
-            updateListView(new AdapterCountry(getActivity(), (String[]) result));
+            updateListView(new AdapterCountry(getActivity(), (Object[]) result));
         } else {
             Crouton.makeText(getActivity(), getString(R.string.sem_resultados), Style.ALERT).show();
         }
