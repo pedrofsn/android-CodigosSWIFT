@@ -7,28 +7,26 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import java.util.List;
-
 import banks.swift.R;
 
 public class AdapterCountry extends BaseAdapter {
 
     private final Context context;
-    private final List<String> list;
+    private final String[] list;
 
-    public AdapterCountry(Context context, List<String> list) {
+    public AdapterCountry(Context context, String[] list) {
         this.context = context;
         this.list = list;
     }
 
     @Override
     public int getCount() {
-        return list.size();
+        return list.length;
     }
 
     @Override
     public Object getItem(int position) {
-        return list.get(position);
+        return list[position];
     }
 
     @Override
@@ -53,7 +51,7 @@ public class AdapterCountry extends BaseAdapter {
             viewHolder = (ViewHolder) v.getTag();
         }
 
-        String nomeDoPais = list.get(position);
+        String nomeDoPais = list[position];
 
         if (nomeDoPais != null) {
             viewHolder.textViewCountry.setText(nomeDoPais);

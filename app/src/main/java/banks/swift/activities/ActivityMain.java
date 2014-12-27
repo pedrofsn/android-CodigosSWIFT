@@ -1,15 +1,9 @@
 package banks.swift.activities;
 
-import android.app.SearchManager;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.MenuItemCompat;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.widget.SearchView;
-import android.view.Menu;
-import android.view.MenuItem;
 
+import banks.swift.ActivitySearchable;
 import banks.swift.R;
 import banks.swift.fragment.FragmentBanks;
 import banks.swift.fragment.FragmentCountries;
@@ -17,10 +11,9 @@ import banks.swift.fragment.FragmentCountries;
 /**
  * Created by pedro.sousa on 26/12/2014.
  */
-public class ActivityMain extends ActionBarActivity implements SearchView.OnQueryTextListener{
+public class ActivityMain extends ActivitySearchable {
 
     private String country;
-    private boolean controlHomeButton = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,17 +25,18 @@ public class ActivityMain extends ActionBarActivity implements SearchView.OnQuer
                     .add(R.id.container, new FragmentCountries())
                     .commit();
         } else {
-            controlHomeButton = savedInstanceState.getBoolean("controlHomeButton");
-            showHomeButton(controlHomeButton);
+            isFragmentBanksVisible = savedInstanceState.getBoolean("isFragmentBanksVisible");
+            showHomeButton(isFragmentBanksVisible);
         }
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putBoolean("controlHomeButton", controlHomeButton);
+        outState.putBoolean("isFragmentBanksVisible", isFragmentBanksVisible);
     }
 
+    @Override
     public void changeFragment(String country) {
         this.country = country;
 
@@ -55,19 +49,19 @@ public class ActivityMain extends ActionBarActivity implements SearchView.OnQuer
             fragmentTransaction.add(R.id.container, fragmentBanks);
             fragmentTransaction.addToBackStack(backStateName);
             fragmentTransaction.commit();
-            controlHomeButton = true;
+            isFragmentBanksVisible = true;
 
         } else {
             getSupportFragmentManager().popBackStack();
-            controlHomeButton = false;
+            isFragmentBanksVisible = false;
         }
 
-        showHomeButton(controlHomeButton);
+        showHomeButton(isFragmentBanksVisible);
     }
 
-    public void showHomeButton(boolean showHomeButton) {
-        getSupportActionBar().setDisplayHomeAsUpEnabled(showHomeButton);
-        getSupportActionBar().setHomeButtonEnabled(showHomeButton);
+    public void showHomeButton(boolean visibility) {
+        getSupportActionBar().setDisplayHomeAsUpEnabled(visibility);
+        getSupportActionBar().setHomeButtonEnabled(visibility);
     }
 
     public String getCountry() {
@@ -76,22 +70,11 @@ public class ActivityMain extends ActionBarActivity implements SearchView.OnQuer
 
     @Override
     public void onBackPressed() {
-        if(controlHomeButton) {
-            controlHomeButton = false;
-            showHomeButton(controlHomeButton);
+        if(isFragmentBanksVisible) {
+            isFragmentBanksVisible = false;
+            showHomeButton(isFragmentBanksVisible);
         }
         super.onBackPressed();
-    }
-
-    @Override
-    public boolean onQueryTextSubmit(String s) {
-
-        return false;
-    }
-
-    @Override
-    public boolean onQueryTextChange(String s) {
-        return false;
     }
 
 }

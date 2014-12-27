@@ -25,14 +25,14 @@ public class FragmentCountries extends Fragment implements AdapterView.OnItemCli
 
     private ListView listView;
 
-    private ArrayList<String> countries;
+    private String[] countries;
     private AdapterCountry adapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (savedInstanceState != null) {
-            countries = (ArrayList<String>) savedInstanceState.get("countries");
+            countries = (String[]) savedInstanceState.get("countries");
             adapter = new AdapterCountry(getActivity(), countries);
         } else {
             AsyncTaskLoadCountries asyncTask = new AsyncTaskLoadCountries(getActivity(), this);
@@ -63,14 +63,14 @@ public class FragmentCountries extends Fragment implements AdapterView.OnItemCli
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putStringArrayList("countries", countries);
+        outState.putStringArray("countries", countries);
     }
 
     @Override
     public void onLoaded(Object result) {
         if (result != null) {
-            this.countries = (ArrayList<String>) result;
-            listView.setAdapter(new AdapterCountry(getActivity(), (ArrayList<String>) result));
+            this.countries = (String[]) result;
+            listView.setAdapter(new AdapterCountry(getActivity(), (String[]) result));
             listView.setOnItemClickListener(this);
         } else {
             Crouton.makeText(getActivity(), getString(R.string.ops_ocorreu_um_erro), Style.ALERT).show();

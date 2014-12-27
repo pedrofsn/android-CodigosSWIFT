@@ -12,7 +12,7 @@ import banks.swift.interfaces.Loadable;
 /**
  * Created by pedro.sousa on 24/12/2014.
  */
-public class AsyncTaskLoadCountries extends AsyncTask<String, Void, ArrayList<String>> {
+public class AsyncTaskLoadCountries extends AsyncTask<String, Void, String[]> {
 
     private Context context;
     private Loadable callback;
@@ -23,17 +23,17 @@ public class AsyncTaskLoadCountries extends AsyncTask<String, Void, ArrayList<St
     }
 
     @Override
-    protected ArrayList<String> doInBackground(String... params) {
+    protected String[] doInBackground(String... params) {
         return lerArquivos();
     }
 
     @Override
-    protected void onPostExecute(ArrayList<String> countries) {
+    protected void onPostExecute(String[] countries) {
         super.onPostExecute(countries);
         callback.onLoaded(countries);
     }
 
-    private ArrayList<String> lerArquivos() {
+    private String[] lerArquivos() {
         ArrayList<String> paises = new ArrayList<String>();
         AssetManager assetManager = context.getAssets();
         try {
@@ -49,6 +49,6 @@ public class AsyncTaskLoadCountries extends AsyncTask<String, Void, ArrayList<St
             e.printStackTrace();
         }
 
-        return paises;
+        return paises.toArray(new String[paises.size()]);
     }
 }
