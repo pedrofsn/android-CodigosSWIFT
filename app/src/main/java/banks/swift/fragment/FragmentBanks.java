@@ -54,9 +54,7 @@ public class FragmentBanks extends Fragment implements Searchable, Loadable {
     @Override
     public void onStart() {
         super.onStart();
-        if (adapter != null) {
-            listView.setAdapter(adapter);
-        }
+        updateListView(adapter);
     }
 
     @Override
@@ -70,14 +68,16 @@ public class FragmentBanks extends Fragment implements Searchable, Loadable {
         if (reult != null) {
             this.arrayBanks = (Bank[]) reult;
             adapter = new AdapterBank(getActivity(), (Bank[]) reult);
-            listView.setAdapter(adapter);
+            updateListView(adapter);
         } else {
             Crouton.makeText(getActivity(), getString(R.string.ops_ocorreu_um_erro), Style.ALERT).show();
         }
     }
 
     private void updateListView(AdapterBank adapter) {
-        listView.setAdapter(adapter);
+        if (adapter != null) {
+            listView.setAdapter(adapter);
+        }
     }
 
     @Override

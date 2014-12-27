@@ -54,9 +54,7 @@ public class FragmentCountries extends Fragment implements AdapterView.OnItemCli
     @Override
     public void onStart() {
         super.onStart();
-        if (adapter != null) {
-            updateListView(adapter);
-        }
+        updateListView(adapter);
     }
 
     @Override
@@ -82,8 +80,10 @@ public class FragmentCountries extends Fragment implements AdapterView.OnItemCli
     }
 
     private void updateListView(AdapterCountry adapter) {
-        listView.setAdapter(adapter);
-        listView.setOnItemClickListener(this);
+        if (adapter != null) {
+            listView.setAdapter(adapter);
+            listView.setOnItemClickListener(this);
+        }
     }
 
     @Override
