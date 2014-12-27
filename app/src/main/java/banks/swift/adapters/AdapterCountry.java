@@ -4,10 +4,9 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.TextView;
 
 import banks.swift.R;
+import banks.swift.adapters.viewholder.ViewHolderCountry;
 
 public class AdapterCountry extends AdapterGeneric {
 
@@ -17,32 +16,21 @@ public class AdapterCountry extends AdapterGeneric {
 
     @Override
     public View getView(int position, View v, ViewGroup parent) {
-        ViewHolder viewHolder;
+        ViewHolderCountry viewHolderCountry;
 
         if (v == null) {
             LayoutInflater inflater = LayoutInflater.from(context);
             v = inflater.inflate(R.layout.adapter_country, parent, false);
-
-            viewHolder = new ViewHolder();
-            viewHolder.textViewCountry = (TextView) v.findViewById(R.id.textViewCountry);
-
-            v.setTag(viewHolder);
+            viewHolderCountry = new ViewHolderCountry(v);
+            v.setTag(viewHolderCountry);
 
         } else {
-            viewHolder = (ViewHolder) v.getTag();
+            viewHolderCountry = (ViewHolderCountry) v.getTag();
         }
 
-        String countryName = (String) arrayItem[position];
-
-        if (countryName != null) {
-            viewHolder.textViewCountry.setText(countryName);
-            v.setTag(viewHolder);
-        }
+        viewHolderCountry.populate((String) arrayItem[position]);
+        v.setTag(viewHolderCountry);
 
         return v;
-    }
-
-    public static class ViewHolder {
-        public TextView textViewCountry;
     }
 }

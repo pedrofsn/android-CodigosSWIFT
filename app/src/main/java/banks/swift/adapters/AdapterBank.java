@@ -17,22 +17,21 @@ public class AdapterBank extends AdapterGeneric {
 
     @Override
     public View getView(int position, View v, ViewGroup parent) {
-        ViewHolderBank viewHolder;
+        ViewHolderBank viewHolderBank;
 
         if (v == null) {
             LayoutInflater inflater = LayoutInflater.from(context);
             v = inflater.inflate(R.layout.adapter_bank, parent, false);
-            viewHolder = new ViewHolderBank(v);
-            v.setTag(viewHolder);
+            viewHolderBank = new ViewHolderBank(v);
+            v.setTag(viewHolderBank);
 
         } else {
-            viewHolder = (ViewHolderBank) v.getTag();
+            viewHolderBank = (ViewHolderBank) v.getTag();
         }
 
-        viewHolder.populate((Bank) arrayItem[position]);
-        v.setTag(viewHolder);
+        viewHolderBank.populate((Bank) arrayItem[position]);
+        v.setTag(viewHolderBank);
 
         return v;
     }
-
 }

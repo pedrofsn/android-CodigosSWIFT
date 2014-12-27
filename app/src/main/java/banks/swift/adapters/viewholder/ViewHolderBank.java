@@ -1,8 +1,6 @@
 package banks.swift.adapters.viewholder;
 
-import android.content.Context;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TableRow;
 import android.widget.TextView;
 
@@ -20,6 +18,15 @@ public class ViewHolderBank {
     private TextView textViewBankSwift;
     private TextView textViewBankBranch;
     private TableRow rowBranch;
+
+    public ViewHolderBank(View v) {
+        this.v = v;
+        textViewBankName = getTextViewBankName();
+        textViewBankRegion = getTextViewBankRegion();
+        textViewBankSwift = getTextViewBankSwift();
+        textViewBankBranch = getTextViewBankBranch();
+        rowBranch = getRowBranch();
+    }
 
     public TextView getTextViewBankName() {
         if (textViewBankName == null) {
@@ -54,16 +61,6 @@ public class ViewHolderBank {
             rowBranch = (TableRow) v.findViewById(R.id.rowBranch);
         }
         return rowBranch;
-    }
-
-    public ViewHolderBank(View v) {
-        this.v = v;
-        textViewBankName = getTextViewBankName();
-        textViewBankRegion = getTextViewBankRegion();
-        textViewBankSwift = getTextViewBankSwift();
-        textViewBankBranch = getTextViewBankBranch();
-        rowBranch = getRowBranch();
-        v = this.v;
     }
 
     public void populate(Bank objectItem) {
