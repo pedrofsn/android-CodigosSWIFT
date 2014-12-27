@@ -89,7 +89,7 @@ public class FragmentCountries extends Fragment implements AdapterView.OnItemCli
 
     @Override
     public void search(String query) {
-        new AsyncTaskSearch(this, mArray, query).execute();
+        new AsyncTaskSearch(this, mArray, query.trim()).execute();
     }
 
     @Override
