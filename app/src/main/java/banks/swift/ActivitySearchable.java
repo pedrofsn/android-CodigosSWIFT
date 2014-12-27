@@ -31,21 +31,20 @@ public abstract class ActivitySearchable extends ActionBarActivity implements Se
         final SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         searchView.setOnQueryTextListener(this);
-/*
-        searchItem.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
+
+        MenuItemCompat.setOnActionExpandListener(searchItem, new MenuItemCompat.OnActionExpandListener() {
             @Override
             public boolean onMenuItemActionExpand(MenuItem menuItem) {
-                return false;
+                return true;
             }
 
             @Override
             public boolean onMenuItemActionCollapse(MenuItem menuItem) {
                 searchView.setQuery("", false);
                 restartSearch();
-                return false;
+                return true;
             }
         });
-*/
 
         return true;
     }

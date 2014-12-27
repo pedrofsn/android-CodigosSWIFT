@@ -69,7 +69,8 @@ public class FragmentBanks extends Fragment implements Searchable, Loadable {
     public void onLoaded(Object reult) {
         if (reult != null) {
             this.arrayBanks = (Bank[]) reult;
-            listView.setAdapter(new AdapterBank(getActivity(), (Bank[]) reult));
+            adapter = new AdapterBank(getActivity(), (Bank[]) reult);
+            listView.setAdapter(adapter);
         } else {
             Crouton.makeText(getActivity(), getString(R.string.ops_ocorreu_um_erro), Style.ALERT).show();
         }
