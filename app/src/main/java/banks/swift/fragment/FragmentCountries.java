@@ -39,7 +39,6 @@ public class FragmentCountries extends FragmentGeneric implements AdapterView.On
         if (result != null && result.length >= 1) {
             if (mArray == null) {
                 mArray = (Object[]) result;
-                mAdapter = new AdapterCountry(getActivity(), mArray);
             }
             updateListView(new AdapterCountry(getActivity(), (Object[]) result));
         } else {

@@ -4,7 +4,6 @@ import android.view.View;
 
 import banks.swift.R;
 import banks.swift.adapters.AdapterBank;
-import banks.swift.adapters.AdapterCountry;
 import de.keyboardsurfer.android.widget.crouton.Crouton;
 import de.keyboardsurfer.android.widget.crouton.Style;
 
@@ -37,7 +36,6 @@ public class FragmentBanks extends FragmentGeneric {
         if (result != null && result.length >= 1) {
             if (mArray == null) {
                 mArray = (Object[]) result;
-                mAdapter = new AdapterBank(getActivity(), mArray);
             }
             updateListView(new AdapterBank(getActivity(), (Object[]) result));
         } else {
