@@ -8,7 +8,7 @@ import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.InputStream;
 
-import banks.swift.interfaces.ILoadBanks;
+import banks.swift.interfaces.Loadable;
 import banks.swift.model.Bank;
 
 /**
@@ -17,9 +17,9 @@ import banks.swift.model.Bank;
 public class AsyncTaskLoadBanks extends AsyncTask<String, Void, Bank[]> {
 
     private Context context;
-    private ILoadBanks callback;
+    private Loadable callback;
 
-    public AsyncTaskLoadBanks(Context context, ILoadBanks callback) {
+    public AsyncTaskLoadBanks(Context context, Loadable callback) {
         this.context = context;
         this.callback = callback;
     }
@@ -32,7 +32,7 @@ public class AsyncTaskLoadBanks extends AsyncTask<String, Void, Bank[]> {
     @Override
     protected void onPostExecute(Bank[] banks) {
         super.onPostExecute(banks);
-        callback.onLoadedBanks(banks);
+        callback.onLoaded(banks);
     }
 
     private String getStringJsonFromAssets(String arquivo) {

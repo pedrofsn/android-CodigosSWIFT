@@ -4,24 +4,20 @@ import android.content.Context;
 import android.content.res.AssetManager;
 import android.os.AsyncTask;
 
-import com.google.gson.Gson;
-
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.List;
 
-import banks.swift.interfaces.ILoadCountries;
+import banks.swift.interfaces.Loadable;
 
 /**
  * Created by pedro.sousa on 24/12/2014.
  */
-    public class AsyncTaskLoadCountries extends AsyncTask<String, Void, ArrayList<String>> {
+public class AsyncTaskLoadCountries extends AsyncTask<String, Void, ArrayList<String>> {
 
     private Context context;
-    private ILoadCountries callback;
+    private Loadable callback;
 
-    public AsyncTaskLoadCountries(Context context, ILoadCountries callback) {
+    public AsyncTaskLoadCountries(Context context, Loadable callback) {
         this.context = context;
         this.callback = callback;
     }
@@ -34,10 +30,8 @@ import banks.swift.interfaces.ILoadCountries;
     @Override
     protected void onPostExecute(ArrayList<String> countries) {
         super.onPostExecute(countries);
-        callback.onLoadedCountries(countries);
+        callback.onLoaded(countries);
     }
-
-
 
     private ArrayList<String> lerArquivos() {
         ArrayList<String> paises = new ArrayList<String>();

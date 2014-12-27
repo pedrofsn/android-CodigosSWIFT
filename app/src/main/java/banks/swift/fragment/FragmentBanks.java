@@ -11,7 +11,7 @@ import banks.swift.R;
 import banks.swift.activities.ActivityMain;
 import banks.swift.adapters.AdapterBank;
 import banks.swift.asynctasks.AsyncTaskLoadBanks;
-import banks.swift.interfaces.ILoadBanks;
+import banks.swift.interfaces.Loadable;
 import banks.swift.model.Bank;
 import de.keyboardsurfer.android.widget.crouton.Crouton;
 import de.keyboardsurfer.android.widget.crouton.Style;
@@ -19,19 +19,19 @@ import de.keyboardsurfer.android.widget.crouton.Style;
 /**
  * Created by pedro.sousa on 26/12/2014.
  */
-public class FragmentBanks extends Fragment implements ILoadBanks {
+public class FragmentBanks extends Fragment implements Loadable {
 
     private ListView listView;
 
-    private Bank[] arrayBank;
+    private Bank[] banks;
     private AdapterBank adapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (savedInstanceState != null) {
-            arrayBank = (Bank[]) savedInstanceState.get("banks");
-            adapter = new AdapterBank(getActivity(), arrayBank);
+            banks = (Bank[]) savedInstanceState.get("banks");
+            adapter = new AdapterBank(getActivity(), banks);
         } else {
             AsyncTaskLoadBanks asyncTask = new AsyncTaskLoadBanks(getActivity(), this);
             asyncTask.execute(((ActivityMain) getActivity()).getCountry());
@@ -60,14 +60,14 @@ public class FragmentBanks extends Fragment implements ILoadBanks {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putSerializable("banks", arrayBank);
+        outState.putSerializable("banks", banks);
     }
 
     @Override
-    public void onLoadedBanks(Bank[] banks) {
-        if (banks != null) {
-            arrayBank = banks;
-            listView.setAdapter(new AdapterBank(getActivity(), banks));
+    public void onLoaded(Object reult) {
+        if (reult != null) {
+            this.banks = (Bank[]) reult;
+            listView.setAdapter(new AdapterBank(getActivity(), (Bank[]) reult));
         } else {
             Crouton.makeText(getActivity(), getString(R.string.ops_ocorreu_um_erro), Style.ALERT).show();
         }

@@ -91,4 +91,13 @@ public class ActivityMain extends ActionBarActivity {
     public String getCountry() {
         return country;
     }
+
+    @Override
+    public void onBackPressed() {
+        if(controlHomeButton) {
+            controlHomeButton = false;
+            showHomeButton(controlHomeButton);
+        }
+        super.onBackPressed();
+    }
 }

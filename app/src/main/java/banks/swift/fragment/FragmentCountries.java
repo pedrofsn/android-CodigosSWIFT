@@ -14,14 +14,14 @@ import banks.swift.R;
 import banks.swift.activities.ActivityMain;
 import banks.swift.adapters.AdapterCountry;
 import banks.swift.asynctasks.AsyncTaskLoadCountries;
-import banks.swift.interfaces.ILoadCountries;
+import banks.swift.interfaces.Loadable;
 import de.keyboardsurfer.android.widget.crouton.Crouton;
 import de.keyboardsurfer.android.widget.crouton.Style;
 
 /**
  * Created by pedro.sousa on 26/12/2014.
  */
-public class FragmentCountries extends Fragment implements ILoadCountries {
+public class FragmentCountries extends Fragment implements AdapterView.OnItemClickListener, Loadable {
 
     private ListView listView;
 
@@ -56,13 +56,7 @@ public class FragmentCountries extends Fragment implements ILoadCountries {
         super.onStart();
         if (adapter != null) {
             listView.setAdapter(adapter);
-
-            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    ((ActivityMain) getActivity()).changeFragment(((String) listView.getAdapter().getItem(position)));
-                }
-            });
+            listView.setOnItemClickListener(this);
         }
     }
 
@@ -73,12 +67,18 @@ public class FragmentCountries extends Fragment implements ILoadCountries {
     }
 
     @Override
-    public void onLoadedCountries(ArrayList<String> countries) {
-        if (countries != null) {
-            this.countries = countries;
-            listView.setAdapter(new AdapterCountry(getActivity(), countries));
+    public void onLoaded(Object result) {
+        if (result != null) {
+            this.countries = (ArrayList<String>) result;
+            listView.setAdapter(new AdapterCountry(getActivity(), (ArrayList<String>) result));
+            listView.setOnItemClickListener(this);
         } else {
             Crouton.makeText(getActivity(), getString(R.string.ops_ocorreu_um_erro), Style.ALERT).show();
         }
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        ((ActivityMain) getActivity()).changeFragment(((String) listView.getAdapter().getItem(position)));
     }
 }
