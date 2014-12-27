@@ -33,8 +33,8 @@ public class FragmentBanks extends Fragment implements ILoadBanks {
             arrayBank = (Bank[]) savedInstanceState.get("banks");
             adapter = new AdapterBank(getActivity(), arrayBank);
         } else {
-            AsyncTaskLoadBanks asyncTaskLoadBanks = new AsyncTaskLoadBanks(getActivity(), this);
-            asyncTaskLoadBanks.execute(((ActivityMain) getActivity()).getCountry());
+            AsyncTaskLoadBanks asyncTask = new AsyncTaskLoadBanks(getActivity(), this);
+            asyncTask.execute(((ActivityMain) getActivity()).getCountry());
         }
     }
 

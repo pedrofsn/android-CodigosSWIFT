@@ -1,6 +1,5 @@
 package banks.swift.fragment;
 
-import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -9,25 +8,36 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import banks.swift.R;
 import banks.swift.activities.ActivityMain;
 import banks.swift.adapters.AdapterCountry;
+import banks.swift.asynctasks.AsyncTaskLoadCountries;
+import banks.swift.interfaces.ILoadCountries;
+import de.keyboardsurfer.android.widget.crouton.Crouton;
+import de.keyboardsurfer.android.widget.crouton.Style;
 
 /**
  * Created by pedro.sousa on 26/12/2014.
  */
-public class FragmentCountries extends Fragment {
+public class FragmentCountries extends Fragment implements ILoadCountries {
+
+    private ListView listView;
 
     private ArrayList<String> countries;
-    private ListView listView;
+    private AdapterCountry adapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        countries = savedInstanceState != null ? (ArrayList<String>) savedInstanceState.get("countries") : lerArquivos();
+        if (savedInstanceState != null) {
+            countries = (ArrayList<String>) savedInstanceState.get("countries");
+            adapter = new AdapterCountry(getActivity(), countries);
+        } else {
+            AsyncTaskLoadCountries asyncTask = new AsyncTaskLoadCountries(getActivity(), this);
+            asyncTask.execute();
+        }
     }
 
     @Override
@@ -44,14 +54,16 @@ public class FragmentCountries extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        listView.setAdapter(new AdapterCountry(getActivity(), countries));
+        if (adapter != null) {
+            listView.setAdapter(adapter);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ((ActivityMain) getActivity()).changeFragment(((String) listView.getAdapter().getItem(position)));
-            }
-        });
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    ((ActivityMain) getActivity()).changeFragment(((String) listView.getAdapter().getItem(position)));
+                }
+            });
+        }
     }
 
     @Override
@@ -60,22 +72,13 @@ public class FragmentCountries extends Fragment {
         outState.putStringArrayList("countries", countries);
     }
 
-    private ArrayList<String> lerArquivos() {
-        ArrayList<String> paises = new ArrayList<String>();
-        AssetManager assetManager = getActivity().getAssets();
-        try {
-            String[] filelist = assetManager.list("");
-
-            for (String nomeDoPais : filelist) {
-                if (nomeDoPais.endsWith(".json")) {
-                    paises.add(nomeDoPais.replace(".json", "").trim());
-                }
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
+    @Override
+    public void onLoadedCountries(ArrayList<String> countries) {
+        if (countries != null) {
+            this.countries = countries;
+            listView.setAdapter(new AdapterCountry(getActivity(), countries));
+        } else {
+            Crouton.makeText(getActivity(), getString(R.string.ops_ocorreu_um_erro), Style.ALERT).show();
         }
-
-        return paises;
     }
 }
