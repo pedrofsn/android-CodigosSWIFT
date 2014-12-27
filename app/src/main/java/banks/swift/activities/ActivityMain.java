@@ -14,8 +14,6 @@ import android.view.MenuItem;
 import banks.swift.R;
 import banks.swift.fragment.FragmentBanks;
 import banks.swift.fragment.FragmentCountries;
-import banks.swift.fragment.Teste;
-import banks.swift.fragment.Teste;
 
 /**
  * Created by pedro.sousa on 26/12/2014.
@@ -96,8 +94,8 @@ public class ActivityMain extends ActionBarActivity implements SearchView.OnQuer
         Fragment fragmentRunning = getFragmentRunning();
         if (s != null && !s.isEmpty() && fragmentRunning != null) {
 
-            if (fragmentRunning instanceof Teste) {
-                ((Teste) fragmentRunning).search(s);
+            if (fragmentRunning instanceof FragmentBanks) {
+                ((FragmentBanks) fragmentRunning).search(s);
             } else {
                 ((FragmentCountries) fragmentRunning).search(s);
             }
@@ -113,8 +111,8 @@ public class ActivityMain extends ActionBarActivity implements SearchView.OnQuer
 
     private void restartSearch() {
         Fragment fragmentRunning = getFragmentRunning();
-        if (fragmentRunning instanceof Teste) {
-            ((Teste) fragmentRunning).restartSearch();
+        if (fragmentRunning instanceof FragmentBanks) {
+            ((FragmentBanks) fragmentRunning).restartSearch();
         } else {
             ((FragmentCountries) fragmentRunning).restartSearch();
         }
@@ -128,7 +126,7 @@ public class ActivityMain extends ActionBarActivity implements SearchView.OnQuer
             String backStateName = fragmentRunning.getClass().getName();
 
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.add(R.id.container, new Teste());
+            fragmentTransaction.add(R.id.container, new FragmentBanks());
             fragmentTransaction.addToBackStack(backStateName);
             fragmentTransaction.commit();
             isFragmentBanksVisible = true;

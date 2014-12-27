@@ -23,7 +23,7 @@ public abstract class FragmentGeneric extends Fragment implements Searchable {
     public ProgressBar progressBar;
 
     public Object[] mArray;
-    public Object adapter;
+    public Object mAdapter;
 
     public abstract void setAdapter();
 
@@ -32,6 +32,7 @@ public abstract class FragmentGeneric extends Fragment implements Searchable {
         super.onCreate(savedInstanceState);
         if (savedInstanceState != null) {
             mArray = (Object[]) savedInstanceState.get("mArray");
+            setAdapter();
         } else {
             AsyncTaskLoad asyncTask = new AsyncTaskLoad(getActivity(), this);
             asyncTask.execute(((ActivityMain) getActivity()).getCountry());
@@ -53,7 +54,7 @@ public abstract class FragmentGeneric extends Fragment implements Searchable {
     @Override
     public void onStart() {
         super.onStart();
-        updateListView(adapter);
+        updateListView(mAdapter);
     }
 
     @Override
