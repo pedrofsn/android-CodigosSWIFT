@@ -22,8 +22,8 @@
                 android:id="@+id/textViewBankName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="#5eb7e6"
                 android:text="---"
+                android:textColor="#5eb7e6"
                 android:textStyle="bold" />
 
             <TableLayout
@@ -33,17 +33,17 @@
                 <TableRow android:layout_marginTop="5dp">
 
                     <TextView
-                        android:textColor="#797979"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="REGIÃO: " />
+                        android:text="REGIÃO: "
+                        android:textColor="#797979" />
 
                     <TextView
-                        android:textColor="#797979"
                         android:id="@+id/textViewBankRegion"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="---" />
+                        android:text="---"
+                        android:textColor="#797979" />
                 </TableRow>
 
                 <TableRow
@@ -51,42 +51,42 @@
                     android:layout_marginTop="5dp">
 
                     <TextView
-                        android:textColor="#C8C8C8"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="BRANCH: " />
+                        android:text="BRANCH: "
+                        android:textColor="#C8C8C8" />
 
                     <TextView
-                        android:textColor="#C8C8C8"
                         android:id="@+id/textViewBankBranch"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="---" />
+                        android:text="---"
+                        android:textColor="#C8C8C8" />
                 </TableRow>
 
                 <LinearLayout
-                    android:layout_marginTop="5dp"
-                    android:padding="20dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/rounded_border"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:background="@drawable/rounded_border">
+                    android:padding="20dp">
 
                     <TextView
-                        android:textColor="@android:color/white"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="5dp"
-                        android:text="SWIFT: " />
+                        android:text="SWIFT: "
+                        android:textColor="@android:color/white" />
 
                     <TextView
-                        android:textStyle="bold"
-                        android:textColor="@android:color/white"
                         android:id="@+id/textViewBankSwift"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="---" />
+                        android:text="---"
+                        android:textColor="@android:color/white"
+                        android:textStyle="bold" />
                 </LinearLayout>
 
             </TableLayout>
