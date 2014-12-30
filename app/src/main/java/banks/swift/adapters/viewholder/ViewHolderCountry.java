@@ -27,7 +27,7 @@ public class ViewHolderCountry {
 
     public void populate(String objectItem) {
         if (objectItem != null) {
-            textViewCountry.setText(objectItem);
+            textViewCountry.setText(objectItem.toUpperCase());
         }
     }
 }
