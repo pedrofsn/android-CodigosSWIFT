@@ -1,7 +1,7 @@
 package banks.swift.adapters.viewholder;
 
 import android.view.View;
-import android.widget.TableRow;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import banks.swift.R;
@@ -17,7 +17,7 @@ public class ViewHolderBank {
     private TextView textViewBankRegion;
     private TextView textViewBankSwift;
     private TextView textViewBankBranch;
-    private TableRow rowBranch;
+    private LinearLayout linearLayout;
 
     public ViewHolderBank(View v) {
         this.v = v;
@@ -25,7 +25,7 @@ public class ViewHolderBank {
         textViewBankRegion = getTextViewBankRegion();
         textViewBankSwift = getTextViewBankSwift();
         textViewBankBranch = getTextViewBankBranch();
-        rowBranch = getRowBranch();
+        linearLayout = getLinearLayout();
     }
 
     public TextView getTextViewBankName() {
@@ -56,11 +56,11 @@ public class ViewHolderBank {
         return textViewBankBranch;
     }
 
-    public TableRow getRowBranch() {
-        if (rowBranch == null) {
-            rowBranch = (TableRow) v.findViewById(R.id.rowBranch);
+    public LinearLayout getLinearLayout() {
+        if (linearLayout == null) {
+            linearLayout = (LinearLayout) v.findViewById(R.id.linearLayout);
         }
-        return rowBranch;
+        return linearLayout;
     }
 
     public void populate(Bank objectItem) {
@@ -78,7 +78,7 @@ public class ViewHolderBank {
             if (!"".equals(branch)) {
                 textViewBankBranch.setText(branch);
             } else {
-                rowBranch.setVisibility(View.GONE);
+                linearLayout.setVisibility(View.GONE);
             }
         }
     }

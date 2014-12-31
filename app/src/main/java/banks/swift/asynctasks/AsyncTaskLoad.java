@@ -38,7 +38,7 @@ public class AsyncTaskLoad extends AsyncTask<String, Void, Object[]> {
     @Override
     protected void onPostExecute(Object[] result) {
         super.onPostExecute(result);
-        callback.showSearchResults(result);
+        callback.showResults(result);
     }
 
     private String getStringJsonFromAssets(String arquivo) {

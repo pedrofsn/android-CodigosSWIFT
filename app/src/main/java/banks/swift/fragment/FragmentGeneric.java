@@ -78,7 +78,7 @@ public abstract class FragmentGeneric extends Fragment implements Searchable {
 
     public abstract void restartSearch();
 
-    public abstract void showSearchResults(Object[] result);
+    public abstract void showResults(Object[] result);
 
 
 }

@@ -11,6 +11,6 @@ public interface Searchable {
 
     public void restartSearch();
 
-    public void showSearchResults(Object[] result);
+    public void showResults(Object[] result);
 
 }

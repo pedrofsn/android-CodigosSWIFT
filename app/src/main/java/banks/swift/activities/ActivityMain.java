@@ -2,6 +2,7 @@ package banks.swift.activities;
 
 import android.app.SearchManager;
 import android.content.Context;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -29,6 +30,8 @@ public class ActivityMain extends ActionBarActivity implements SearchView.OnQuer
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.cor_azul_marcante)));
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()

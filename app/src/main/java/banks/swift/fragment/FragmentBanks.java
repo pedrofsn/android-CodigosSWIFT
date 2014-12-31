@@ -32,7 +32,7 @@ public class FragmentBanks extends FragmentGeneric {
     }
 
     @Override
-    public void showSearchResults(Object[] result) {
+    public void showResults(Object[] result) {
         if (result != null && result.length >= 1) {
             if (mArray == null) {
                 mArray = (Object[]) result;
