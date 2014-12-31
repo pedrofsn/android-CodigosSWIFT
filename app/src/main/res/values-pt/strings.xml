@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Códigos SWIFT</string>
-
     <!-- menu.xml -->
 
     <string name="duvidas_e_sugestoes">Dúvidas e sugestões</string>
@@ -10,12 +8,6 @@
     <string name="pesquisar">Pesquisar</string>
 
     <string name="sem_resultados">Sem resultados</string>
-
-    <!-- email -->
-
-    <string name="titulo_email">[Feedback] Códigos SWIFT - via App</string>
-
-    <string name="email_suporte">pedrokra@gmail.com</string>
 
     <!-- dialog_fragment_contato.xml -->
 

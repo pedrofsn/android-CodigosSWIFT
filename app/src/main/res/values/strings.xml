@@ -1,15 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- app name -->
+
     <string name="app_name">Códigos SWIFT</string>
-
-    <!-- menu.xml -->
-
-    <string name="duvidas_e_sugestoes">Doubts and suggestions</string>
-
-    <string name="pesquisar">Search</string>
-
-    <string name="sem_resultados">No results</string>
 
     <!-- email -->
 
@@ -17,20 +11,8 @@
 
     <string name="email_suporte">pedrokra@gmail.com</string>
 
-    <!-- dialog_fragment_contato.xml -->
+    <!-- admob -->
 
-    <string name="insira_uma_mensagem_com_mais_de_dez_caracteres">Enter a message with more than 10 characters!</string>
-
-    <string name="enviar_mensagem">Send message</string>
-
-    <string name="insira_sua_duvida_ou_sugestao">Insert your doubt or suggestion</string>
-
-    <!-- adapter_bank.xml -->
-
-    <string name="regiao">REGION: </string>
-
-    <string name="branch">BRANCH: </string>
-
-    <string name="swift">SWIFT: </string>
+    <string name="banner_ad_unit_id"></string>
 
 </resources>
