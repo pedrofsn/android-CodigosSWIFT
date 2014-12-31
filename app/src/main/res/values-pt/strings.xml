@@ -3,20 +3,34 @@
 
     <string name="app_name">Códigos SWIFT</string>
 
-    <string name="titulo_email">[Feedback] Códigos SWIFT - via App</string>
+    <!-- menu.xml -->
 
-    <string name="email_suporte">pedrokra@gmail.com</string>
+    <string name="duvidas_e_sugestoes">Dúvidas e sugestões</string>
 
     <string name="pesquisar">Pesquisar</string>
 
     <string name="sem_resultados">Sem resultados</string>
 
+    <!-- email -->
+
+    <string name="titulo_email">[Feedback] Códigos SWIFT - via App</string>
+
+    <string name="email_suporte">pedrokra@gmail.com</string>
+
+    <!-- dialog_fragment_contato.xml -->
+
     <string name="insira_uma_mensagem_com_mais_de_dez_caracteres">Insira uma mensagem com mais de 10 caracteres!</string>
 
     <string name="enviar_mensagem">Enviar mensagem</string>
 
-    <string name="duvidas_e_sugestoes">Dúvidas e sugestões</string>
-
     <string name="insira_sua_duvida_ou_sugestao">Insira sua dúvida ou sugestão</string>
+
+    <!-- adapter_bank.xml -->
+
+    <string name="regiao">REGIÃO:</string>
+
+    <string name="branch">BRANCH:</string>
+
+    <string name="swift">SWIFT:</string>
 
 </resources>

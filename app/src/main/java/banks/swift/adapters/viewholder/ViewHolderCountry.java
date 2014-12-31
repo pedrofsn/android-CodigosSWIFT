@@ -10,7 +10,7 @@ import banks.swift.R;
  */
 public class ViewHolderCountry {
 
-    private View v;
+    private final View v;
     private TextView textViewCountry;
 
     public ViewHolderCountry(View v) {

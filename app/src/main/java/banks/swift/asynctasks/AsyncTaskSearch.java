@@ -12,9 +12,9 @@ import banks.swift.model.Bank;
  */
 public class AsyncTaskSearch extends AsyncTask<String, Void, Object[]> {
 
-    private Searchable callback;
-    private Object[] array;
-    private String query;
+    private final Searchable callback;
+    private final Object[] array;
+    private final String query;
 
     public AsyncTaskSearch(Searchable callback, Object[] array, String query) {
         this.array = array;
@@ -35,7 +35,7 @@ public class AsyncTaskSearch extends AsyncTask<String, Void, Object[]> {
 
     private Object[] search() {
         if (array instanceof String[]) {
-            ArrayList<String> result = new ArrayList<String>();
+            ArrayList<String> result = new ArrayList<>();
 
             for (String pais : (String[]) array) {
                 if (pais.toLowerCase().contains(query.toLowerCase())) {
@@ -46,7 +46,7 @@ public class AsyncTaskSearch extends AsyncTask<String, Void, Object[]> {
             return result.toArray(new String[result.size()]);
 
         } else {
-            ArrayList<Bank> result = new ArrayList<Bank>();
+            ArrayList<Bank> result = new ArrayList<>();
 
             for (Bank pais : (Bank[]) array) {
                 if (pais.getName().toLowerCase().contains(query.toLowerCase())) {

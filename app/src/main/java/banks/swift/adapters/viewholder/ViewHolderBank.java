@@ -12,7 +12,7 @@ import banks.swift.model.Bank;
  */
 public class ViewHolderBank {
 
-    private View v;
+    private final View v;
     private TextView textViewBankName;
     private TextView textViewBankRegion;
     private TextView textViewBankSwift;

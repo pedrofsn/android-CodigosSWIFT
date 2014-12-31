@@ -18,8 +18,8 @@ import banks.swift.model.Bank;
  */
 public class AsyncTaskLoad extends AsyncTask<String, Void, Object[]> {
 
-    private Context context;
-    private Searchable callback;
+    private final Context context;
+    private final Searchable callback;
 
     public AsyncTaskLoad(Context context, Searchable callback) {
         this.context = context;
@@ -56,7 +56,7 @@ public class AsyncTaskLoad extends AsyncTask<String, Void, Object[]> {
     }
 
     private String[] lerArquivos() {
-        ArrayList<String> paises = new ArrayList<String>();
+        ArrayList<String> paises = new ArrayList<>();
         AssetManager assetManager = context.getAssets();
         try {
             String[] filelist = assetManager.list("");

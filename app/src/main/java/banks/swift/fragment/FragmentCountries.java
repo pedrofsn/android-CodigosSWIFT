@@ -38,9 +38,9 @@ public class FragmentCountries extends FragmentGeneric implements AdapterView.On
     public void showResults(Object[] result) {
         if (result != null && result.length >= 1) {
             if (mArray == null) {
-                mArray = (Object[]) result;
+                mArray = result;
             }
-            updateListView(new AdapterCountry(getActivity(), (Object[]) result));
+            updateListView(new AdapterCountry(getActivity(), result));
         } else {
             Crouton.makeText(getActivity(), getString(R.string.sem_resultados), Style.ALERT).show();
         }

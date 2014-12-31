@@ -35,9 +35,9 @@ public class FragmentBanks extends FragmentGeneric {
     public void showResults(Object[] result) {
         if (result != null && result.length >= 1) {
             if (mArray == null) {
-                mArray = (Object[]) result;
+                mArray = result;
             }
-            updateListView(new AdapterBank(getActivity(), (Object[]) result));
+            updateListView(new AdapterBank(getActivity(), result));
         } else {
             Crouton.makeText(getActivity(), getString(R.string.sem_resultados), Style.ALERT).show();
         }

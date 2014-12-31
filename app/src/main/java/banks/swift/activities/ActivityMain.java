@@ -45,7 +45,7 @@ public class ActivityMain extends ActionBarActivity implements SearchView.OnQuer
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_main, menu);
+        getMenuInflater().inflate(R.menu.menu, menu);
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         searchItem = menu.findItem(R.id.action_search);
         final SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
@@ -158,8 +158,7 @@ public class ActivityMain extends ActionBarActivity implements SearchView.OnQuer
     @Override
     public void onBackPressed() {
         if (isFragmentBanksVisible) {
-            isFragmentBanksVisible = false;
-            showHomeButton(isFragmentBanksVisible);
+            showHomeButton(isFragmentBanksVisible = false);
         }
         super.onBackPressed();
     }

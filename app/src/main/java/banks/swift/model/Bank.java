@@ -7,10 +7,10 @@ import java.io.Serializable;
  */
 public class Bank implements Serializable {
 
-    private String name;
-    private String city;
-    private String swift;
-    private String branch;
+    private final String name;
+    private final String city;
+    private final String swift;
+    private final String branch;
 
     public Bank(String name, String city, String swift, String branch) {
         this.name = name;
