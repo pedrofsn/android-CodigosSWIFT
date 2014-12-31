@@ -8,6 +8,10 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 import banks.swift.R;
 import banks.swift.activities.ActivityMain;
 import banks.swift.asynctasks.AsyncTaskLoad;
@@ -21,6 +25,7 @@ public abstract class FragmentGeneric extends Fragment implements Searchable {
 
     public ListView listView;
     public ProgressBar progressBar;
+    private AdView adView;
 
     public Object[] mArray;
     public Object mAdapter;
@@ -49,12 +54,27 @@ public abstract class FragmentGeneric extends Fragment implements Searchable {
         super.onViewCreated(view, savedInstanceState);
         listView = (ListView) view.findViewById(R.id.listView);
         progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
+        adView = (AdView) view.findViewById(R.id.adView);
     }
 
     @Override
     public void onStart() {
         super.onStart();
         updateListView(mAdapter);
+
+        AdRequest adRequest = new AdRequest.Builder()
+                .setGender(AdRequest.GENDER_MALE)
+                .build();
+
+        adView.loadAd(adRequest);
+
+        adView.setAdListener(new AdListener() {
+            @Override
+            public void onAdLoaded() {
+                super.onAdLoaded();
+                adView.setVisibility(View.VISIBLE);
+            }
+        });
     }
 
     @Override
@@ -80,5 +100,27 @@ public abstract class FragmentGeneric extends Fragment implements Searchable {
 
     public abstract void showResults(Object[] result);
 
+    @Override
+    public void onPause() {
+        if (adView != null) {
+            adView.pause();
+        }
+        super.onPause();
+    }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (adView != null) {
+            adView.resume();
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        if (adView != null) {
+            adView.destroy();
+        }
+        super.onDestroy();
+    }
 }
