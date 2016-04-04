@@ -13,7 +13,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import banks.swift.R;
-import banks.swift.dialog.DialogFragmentContato;
 import banks.swift.fragment.FragmentBanks;
 import banks.swift.fragment.FragmentCountries;
 
@@ -81,9 +80,6 @@ public class ActivityMain extends ActionBarActivity implements SearchView.OnQuer
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id) {
-            case R.id.sendMessage:
-                new DialogFragmentContato().show(getSupportFragmentManager(), DialogFragmentContato.TAG);
-                break;
 
             case android.R.id.home:
                 changeFragment(null);

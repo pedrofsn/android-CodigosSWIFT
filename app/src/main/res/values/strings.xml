@@ -1,18 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- app name -->
-
     <string name="app_name">Códigos SWIFT</string>
-
-    <!-- email -->
-
-    <string name="titulo_email">[Feedback] Códigos SWIFT - via App</string>
-
-    <string name="email_suporte">pedrokra@gmail.com</string>
-
-    <!-- admob -->
-
-    <string name="banner_ad_unit_id"></string>
+    <string name="pesquisar">Search</string>
+    <string name="sem_resultados">No results</string>
+    <string name="regiao">REGION: </string>
+    <string name="branch">BRANCH: </string>
+    <string name="swift">SWIFT: </string>
 
 </resources>
