@@ -25,10 +25,9 @@ public abstract class FragmentGeneric extends Fragment implements Searchable {
 
     public ListView listView;
     public ProgressBar progressBar;
-    private AdView adView;
-
     public Object[] mArray;
     public Object mAdapter;
+    private AdView adView;
 
     public abstract void setAdapter();
 
