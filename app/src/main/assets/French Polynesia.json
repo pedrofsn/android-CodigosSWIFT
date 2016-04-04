@@ -1,1 +1,20 @@
-[{"name":"BANQUE DE POLYNESIE","city":"PAPEETE","branch":"","swift":"BPOLPFTP"},{"name":"BANQUE DE TAHITI S.A.","city":"PAPEETE","branch":"","swift":"CEPAPFTP"},{"name":"SOCREDO","city":"PAPEETE","branch":"","swift":"SOCBPFTX"}]
+[
+  {
+    "name": "BANQUE DE POLYNESIE",
+    "city": "PAPEETE",
+    "branch": "",
+    "swift": "BPOLPFTP"
+  },
+  {
+    "name": "BANQUE DE TAHITI S.A.",
+    "city": "PAPEETE",
+    "branch": "",
+    "swift": "CEPAPFTP"
+  },
+  {
+    "name": "SOCREDO",
+    "city": "PAPEETE",
+    "branch": "",
+    "swift": "SOCBPFTX"
+  }
+]

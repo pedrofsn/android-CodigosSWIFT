@@ -1,1 +1,26 @@
-[{"name":"BANCO DA AFRICA OCIDENTAL SA","city":"BISSAU","branch":"","swift":"BAOBGWGW"},{"name":"BANCO DA UNIAO","city":"BISSAU","branch":"","swift":"BDUGGWGW"},{"name":"BANQUE REGIONALE DE SOLIDARITE – GUINEE BISSAU","city":"BISSAU","branch":"","swift":"BRSWGWGW"},{"name":"ECOBANK GUINEE BISSAU","city":"BISSAU","branch":"","swift":"ECOCGWGW"}]
+[
+  {
+    "name": "BANCO DA AFRICA OCIDENTAL SA",
+    "city": "BISSAU",
+    "branch": "",
+    "swift": "BAOBGWGW"
+  },
+  {
+    "name": "BANCO DA UNIAO",
+    "city": "BISSAU",
+    "branch": "",
+    "swift": "BDUGGWGW"
+  },
+  {
+    "name": "BANQUE REGIONALE DE SOLIDARITE – GUINEE BISSAU",
+    "city": "BISSAU",
+    "branch": "",
+    "swift": "BRSWGWGW"
+  },
+  {
+    "name": "ECOBANK GUINEE BISSAU",
+    "city": "BISSAU",
+    "branch": "",
+    "swift": "ECOCGWGW"
+  }
+]

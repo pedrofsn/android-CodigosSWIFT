@@ -1,1 +1,20 @@
-[{"name":"BANK OF ERITREA","city":"ASMARA","branch":"","swift":"BOERERAI"},{"name":"COMMERCIAL BANK OF ERITREA","city":"ASMARA","branch":"","swift":"CBERERAI"},{"name":"HOUSING AND COMMERCE BANK OF ERITREA","city":"ASMARA","branch":"","swift":"HCBEERAI"}]
+[
+  {
+    "name": "BANK OF ERITREA",
+    "city": "ASMARA",
+    "branch": "",
+    "swift": "BOERERAI"
+  },
+  {
+    "name": "COMMERCIAL BANK OF ERITREA",
+    "city": "ASMARA",
+    "branch": "",
+    "swift": "CBERERAI"
+  },
+  {
+    "name": "HOUSING AND COMMERCE BANK OF ERITREA",
+    "city": "ASMARA",
+    "branch": "",
+    "swift": "HCBEERAI"
+  }
+]

@@ -1,1 +1,8 @@
-[{"name":"STANDARD CHARTERED BANK","city":"STANLEY","branch":"","swift":"SCBLFKFK"}]
+[
+  {
+    "name": "STANDARD CHARTERED BANK",
+    "city": "STANLEY",
+    "branch": "",
+    "swift": "SCBLFKFK"
+  }
+]

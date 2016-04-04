@@ -1,1 +1,32 @@
-[{"name":"CARIBBEAN COMMERCIAL BANK (ANG) LTD.","city":"THE VALLEY","branch":"","swift":"CABNAIAI"},{"name":"FIRSTCARIBBEAN INTERNATIONAL BANK","city":"THE VALLEY","branch":"","swift":"FCIBAIAI"},{"name":"GOVERNMENT OF ANGUILLA","city":"THE VALLEY","branch":"","swift":"GVANAIAI"},{"name":"NATIONAL BANK OF ANGUILLA LTD.","city":"THE VALLEY","branch":"","swift":"ANGUAIAI"},{"name":"SCOTIABANK ANGUILLA LTD.","city":"THE VALLEY","branch":"","swift":"NOSCAIAI"}]
+[
+  {
+    "name": "CARIBBEAN COMMERCIAL BANK (ANG) LTD.",
+    "city": "THE VALLEY",
+    "branch": "",
+    "swift": "CABNAIAI"
+  },
+  {
+    "name": "FIRSTCARIBBEAN INTERNATIONAL BANK",
+    "city": "THE VALLEY",
+    "branch": "",
+    "swift": "FCIBAIAI"
+  },
+  {
+    "name": "GOVERNMENT OF ANGUILLA",
+    "city": "THE VALLEY",
+    "branch": "",
+    "swift": "GVANAIAI"
+  },
+  {
+    "name": "NATIONAL BANK OF ANGUILLA LTD.",
+    "city": "THE VALLEY",
+    "branch": "",
+    "swift": "ANGUAIAI"
+  },
+  {
+    "name": "SCOTIABANK ANGUILLA LTD.",
+    "city": "THE VALLEY",
+    "branch": "",
+    "swift": "NOSCAIAI"
+  }
+]

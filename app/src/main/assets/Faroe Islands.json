@@ -1,1 +1,14 @@
-[{"name":"BANKNORDIK P/F (FORMERLY FOROYA BANKI P/F)","city":"TORSHAVN","branch":"","swift":"FIFBFOTX"},{"name":"EIK BANKI P/F","city":"TORSHAVN","branch":"","swift":"EIKBFOTF"}]
+[
+  {
+    "name": "BANKNORDIK P/F (FORMERLY FOROYA BANKI P/F)",
+    "city": "TORSHAVN",
+    "branch": "",
+    "swift": "FIFBFOTX"
+  },
+  {
+    "name": "EIK BANKI P/F",
+    "city": "TORSHAVN",
+    "branch": "",
+    "swift": "EIKBFOTF"
+  }
+]
