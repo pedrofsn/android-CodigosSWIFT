@@ -8,6 +8,9 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
+import com.amazon.device.ads.AdLayout;
+import com.amazon.device.ads.AdTargetingOptions;
+
 import banks.swift.R;
 import banks.swift.activities.ActivityMain;
 import banks.swift.asynctasks.AsyncTaskLoad;
@@ -23,7 +26,7 @@ public abstract class FragmentGeneric extends Fragment implements Searchable {
     public ProgressBar progressBar;
     public Object[] mArray;
     public Object mAdapter;
-    private View adView;
+    private AdLayout ads;
 
     public abstract void setAdapter();
 
@@ -49,28 +52,23 @@ public abstract class FragmentGeneric extends Fragment implements Searchable {
         super.onViewCreated(view, savedInstanceState);
         listView = (ListView) view.findViewById(R.id.listView);
         progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
-        adView = (View) view.findViewById(R.id.adView);
+        ads = (AdLayout) view.findViewById(R.id.ads);
     }
 
     @Override
     public void onStart() {
         super.onStart();
         updateListView(mAdapter);
-
-//        AdRequest adRequest = new AdRequest.Builder()
-//                .setGender(AdRequest.GENDER_MALE)
-//                .build();
-//
-//        adView.loadAd(adRequest);
-//
-//        adView.setAdListener(new AdListener() {
-//            @Override
-//            public void onAdLoaded() {
-//                super.onAdLoaded();
-//                adView.setVisibility(View.VISIBLE);
-//            }
-//        });
+        AdTargetingOptions adOptions = new AdTargetingOptions();
+        ads.loadAd(adOptions);
     }
+
+    @Override
+    public void onDestroy() {
+        ads.destroy();
+        super.onDestroy();
+    }
+
 
     @Override
     public void onLoading() {
@@ -95,27 +93,4 @@ public abstract class FragmentGeneric extends Fragment implements Searchable {
 
     public abstract void showResults(Object[] result);
 
-    @Override
-    public void onPause() {
-        if (adView != null) {
-//            adView.pause();
-        }
-        super.onPause();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (adView != null) {
-//            adView.resume();
-        }
-    }
-
-    @Override
-    public void onDestroy() {
-        if (adView != null) {
-//            adView.destroy();
-        }
-        super.onDestroy();
-    }
 }
